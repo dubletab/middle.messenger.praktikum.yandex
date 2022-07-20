@@ -4,11 +4,10 @@
   "description": "Учебный проект от Яндекс.Практикум Мидл фронтенд-разработчик",
   "scripts": {
     "dev": "parcel src/index.html --open",
-    "build-prod": "parcel build src/index.html"
+    "build-prod": "parcel build src/index.html",
+    "start": "parcel build src/index.html && node server.js"
   },
-  "engines": {
-    "node": ">=17"
-  },
+
   "repository": {
     "type": "git",
     "url": "git+https://github.com/dubletab/middle.messenger.praktikum.yandex.git"

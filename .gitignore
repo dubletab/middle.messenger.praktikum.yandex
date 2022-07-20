@@ -14,3 +14,5 @@ node_modules/
 ehthumbs.db
 Thumbs.db
 /.idea/
+parcel-cache/
+/.parcel-cache/
