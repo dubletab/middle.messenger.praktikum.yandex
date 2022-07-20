@@ -1,0 +1,37 @@
+.chat-wrapper {
+  width: 100vw;
+  height: 100vh;
+  font-weight: 500;
+  color: #1E1E1E;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.chats{
+  flex: 0 0 310px;
+  background: #FBFBFB;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  &-header{
+    flex: 0 0 100px;
+  }
+  &-body{
+    overflow-y: scroll;
+  }
+  .chat-item{
+    height: 70px;
+  }
+  .chat-item-logo-img{
+    width: 47px;
+    height: 47px;
+    background: #EFEFEF;
+    border-radius: 50%;
+  }
+}
+
+.chat-messages{
+  flex: 1 1 auto;
+}

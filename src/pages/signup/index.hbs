@@ -1,0 +1,19 @@
+<div class='wrapper'>
+    <div class='signup container'>
+        <form class='signup--form'>
+            <div class='signup--header'>Регистрация</div>
+            <div class='signup--form-items'>
+                {{#each forms}}
+                    <div class='signup--form-item'>
+                        <label for={{this.id}}>{{this.name}}</label>
+                        <input type={{this.type}} id={{this.id}}>
+                    </div>
+                {{/each}}
+            </div>
+            <div class='signup--submit'>
+                <input type='submit' value="Зарегистрироваться" class='signup--submit-input'>
+                <a href='#'>Войти</a>
+            </div>
+        </form>
+    </div>
+</div>

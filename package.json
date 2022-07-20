@@ -1,0 +1,36 @@
+{
+  "name": "middle.messenger.praktikum.yandex",
+  "version": "1.0.0",
+  "description": "Учебный проект от Яндекс.Практикум Мидл фронтенд-разработчик",
+  "scripts": {
+    "dev": "parcel src/index.html --open",
+    "build-prod": "parcel build src/index.html"
+  },
+  "engines": {
+    "node": ">=17"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dubletab/middle.messenger.praktikum.yandex.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dubletab/middle.messenger.praktikum.yandex/issues"
+  },
+  "homepage": "https://github.com/dubletab/middle.messenger.praktikum.yandex#readme",
+  "devDependencies": {
+    "@parcel/transformer-less": "^2.6.2",
+    "eslint": "^8.19.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "express": "^4.18.1",
+    "parcel": "^2.6.2",
+    "parcel-transformer-hbs": "^1.0.4",
+    "prettier": "^2.7.1"
+  },
+  "dependencies": {
+    "handlebars": "^4.7.7"
+  }
+}
