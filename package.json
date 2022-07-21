@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Учебный проект от Яндекс.Практикум Мидл фронтенд-разработчик",
   "scripts": {
-    "dev": "parcel src/index.html --open",
+    "dev": "parcel src/index.html --open --no-cache",
     "build-prod": "parcel build src/index.html",
     "start": "parcel build src/index.html && node server.js"
   },
