@@ -35,3 +35,29 @@ switch (path) {
             errorMessage: 'Не туда попали',
         });
 }
+
+//пока отсутствует роутинг
+const devNavigate = document.getElementById('devNavigate');
+devNavigate.addEventListener(
+    'change',
+    () => (window.location.href = devNavigate.value),
+);
+
+const navArray = [
+    { path: '/', name: 'mainPage' },
+    { path: '/login', name: 'loginPage' },
+    { path: '/signup', name: 'signupPage' },
+    { path: '/profile', name: 'profilePage' },
+    { path: '/500', name: 'error500Page' },
+    { path: '/incorrectName', name: 'error404Page' },
+];
+
+navArray.forEach(item => {
+    const option = document.createElement('option');
+    option.value = item.path;
+    if (item.path === window.location.pathname) {
+        option.selected = 'selected';
+    }
+    option.textContent = item.name;
+    devNavigate.append(option);
+});

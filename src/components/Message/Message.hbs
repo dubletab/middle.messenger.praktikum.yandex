@@ -1,0 +1,9 @@
+{{#if isFromMe}}
+    <div class='message message-from-me'>
+        <p>{{text}}<span>{{time}}</span></p>
+    </div>
+{{else}}
+    <div class='message'>
+        <p>{{text}}<span>{{time}}</span></p>
+    </div>
+{{/if}}
