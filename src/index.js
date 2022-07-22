@@ -3,6 +3,7 @@ import ErrorPage from './pages/Error/Error.js';
 import LoginPage from './pages/Login/Login.js';
 import SignupPage from './pages/SignUp/SignUp.js';
 import ChatsPage from './pages/Chats/Chats.js';
+import ChangePass from './pages/ChangePass/ChangePass';
 
 import './style.less';
 
@@ -22,6 +23,9 @@ switch (path) {
         break;
     case '/profile':
         root.innerHTML = ProfilePage();
+        break;
+    case '/changepass':
+        root.innerHTML = ChangePass();
         break;
     case '/500':
         root.innerHTML = ErrorPage({
@@ -48,6 +52,7 @@ const navArray = [
     { path: '/login', name: 'loginPage' },
     { path: '/signup', name: 'signupPage' },
     { path: '/profile', name: 'profilePage' },
+    { path: '/changepass', name: 'changePassPage' },
     { path: '/500', name: 'error500Page' },
     { path: '/incorrectName', name: 'error404Page' },
 ];
