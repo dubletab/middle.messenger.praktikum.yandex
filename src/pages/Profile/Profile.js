@@ -5,12 +5,12 @@ import WrapperCenterPage from '../../layout/WrapperCenterPage/WrapperCenterPage'
 import './Profile.less';
 
 const profileData = [
-    InfoLine({ item: 'Почта', info: 'pochta@yandex.ru' }),
-    InfoLine({ item: 'Логин', info: 'ivanivanov' }),
-    InfoLine({ item: 'Имя', info: 'Иван' }),
-    InfoLine({ item: 'Фамилия', info: 'Иванов' }),
-    InfoLine({ item: 'Имя в чате', info: 'Иван' }),
-    InfoLine({ item: 'Телефон', info: '+7 (909) 967 30 30' }),
+    InfoLine({ item: 'Почта', info: 'pochta@yandex.ru', id: 'email' }),
+    InfoLine({ item: 'Логин', info: 'ivanivanov', id: 'login' }),
+    InfoLine({ item: 'Имя', info: 'Иван', id: 'first_name' }),
+    InfoLine({ item: 'Фамилия', info: 'Иванов', id: 'last_name' }),
+    InfoLine({ item: 'Имя в чате', info: 'Иван', id: 'display_name' }),
+    InfoLine({ item: 'Телефон', info: '+7 (909) 967 30 30', id: 'phone' }),
 ];
 
 const settingsData = [
