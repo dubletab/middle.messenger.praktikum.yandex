@@ -41,10 +41,12 @@ switch (path) {
 
 //пока отсутствует роутинг
 const devNavigate = document.getElementById('devNavigate');
-devNavigate.addEventListener(
-    'change',
-    () => (window.location.href = devNavigate.value),
-);
+if (devNavigate instanceof HTMLSelectElement) {
+    devNavigate.addEventListener(
+        'change',
+        () => (window.location.href = devNavigate.value),
+    );
+}
 
 const navArray = [
     { path: '/', name: 'mainPage' },
@@ -61,6 +63,7 @@ navArray.forEach(item => {
     const option = document.createElement('option');
     option.value = item.path;
     if (item.path === window.location.pathname) {
+        //@ts-ignore
         option.selected = 'selected';
     }
     option.textContent = item.name;
