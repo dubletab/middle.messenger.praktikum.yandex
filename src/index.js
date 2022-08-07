@@ -1,43 +1,41 @@
-import ProfilePage from './pages/Profile/Profile.js';
-import ErrorPage from './pages/Error/Error.js';
-import LoginPage from './pages/Login/Login.js';
-import SignupPage from './pages/SignUp/SignUp.js';
+import ProfilePage from './pages/Profile/Profile';
+import Error404Page from './pages/Error404/Error404';
+import Error500Page from './pages/Error500/Error500';
+import LoginPage from './pages/Login/Login';
+import SignupPage from './pages/SignUp/SignUp';
 import ChatsPage from './pages/Chats/Chats.js';
-import ChangePass from './pages/ChangePass/ChangePass';
+// import ChangePass from './pages/ChangePass/ChangePass';
+import renderDOM from './utils/renderDOM';
 
 import './style.less';
-
-const root = document.getElementById('root');
 
 const path = window.location.pathname;
 
 switch (path) {
     case '/':
-        root.innerHTML = ChatsPage();
+        // root.innerHTML = ChatsPage();
         break;
     case '/login':
-        root.innerHTML = LoginPage();
-        break;
-    case '/signup':
-        root.innerHTML = SignupPage();
+        renderDOM('root', LoginPage);
         break;
     case '/profile':
-        root.innerHTML = ProfilePage();
+        renderDOM('root', ProfilePage);
+        break;
+    case '/signup':
+        renderDOM('root', SignupPage);
         break;
     case '/changepass':
-        root.innerHTML = ChangePass();
+        // root.innerHTML = ChangePass();
         break;
     case '/500':
-        root.innerHTML = ErrorPage({
-            errorNumber: 500,
-            errorMessage: 'Мы уже фиксим',
-        });
+        renderDOM('root', Error500Page);
+        // root.innerHTML = ErrorPage({
+        //     errorNumber: 500,
+        //     errorMessage: 'Мы уже фиксим',
+        // });
         break;
     default:
-        root.innerHTML = ErrorPage({
-            errorNumber: 404,
-            errorMessage: 'Не туда попали',
-        });
+        renderDOM('root', Error404Page);
 }
 
 //пока отсутствует роутинг

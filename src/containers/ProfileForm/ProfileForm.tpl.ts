@@ -1,4 +1,4 @@
-<div class='profile'>
+export const tpl = `<div class='profile'>
     <div class='profile--logo'>
         <div class='profile--img'>img</div>
         <div class='profile--name'>Иван</div>
@@ -13,4 +13,4 @@
             {{{this}}}
         {{/each}}
     </div>
-</div>
+</div>`;

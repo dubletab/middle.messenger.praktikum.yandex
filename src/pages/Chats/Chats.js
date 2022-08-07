@@ -1,5 +1,5 @@
 import tpl from './Chats.hbs';
-import ChatItem from '../../components/ChatItem/ChatItem';
+import { ChatItem } from '../../components/ChatItem/ChatItem';
 import Message from '../../components/Message/Message';
 
 import './Chats.less';

@@ -1,6 +1,6 @@
 import tpl from './ChangePass.hbs';
 import InfoLine from '../../components/InfoLine/InfoLine';
-import WrapperCenterPage from '../../layout/WrapperCenterPage/WrapperCenterPage';
+import WrapperCenterPage from '../../layout/WrapperCenterPage/WrapperCenterPage.tpl';
 
 import './ChangePass.less';
 
