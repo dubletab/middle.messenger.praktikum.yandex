@@ -10,7 +10,8 @@ const navArray = [
     '/login',
     '/signup',
     '/profile',
-    '/changepass',
+    '/password-change',
+    'profile-change',
     '/500',
     '/incorrectName',
 ];

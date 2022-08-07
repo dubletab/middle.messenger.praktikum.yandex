@@ -3,11 +3,13 @@ import Error404Page from './pages/Error404/Error404';
 import Error500Page from './pages/Error500/Error500';
 import LoginPage from './pages/Login/Login';
 import SignupPage from './pages/SignUp/SignUp';
-import ChatsPage from './pages/Chats/Chats.js';
-// import ChangePass from './pages/ChangePass/ChangePass';
+// import ChatsPage from './pages/Chats/Chats.js';
+import PasswordChangePage from './pages/PasswordChangePage/PasswordChangePage';
+import ProfileChangePage from './pages/ProfileChangePage/ProfileChangePage';
 import renderDOM from './utils/renderDOM';
 
 import './style.less';
+import './reworkStyles.less';
 
 const path = window.location.pathname;
 
@@ -24,15 +26,14 @@ switch (path) {
     case '/signup':
         renderDOM('root', SignupPage);
         break;
-    case '/changepass':
-        // root.innerHTML = ChangePass();
+    case '/password-change':
+        renderDOM('root', PasswordChangePage);
+        break;
+    case '/profile-change':
+        renderDOM('root', ProfileChangePage);
         break;
     case '/500':
         renderDOM('root', Error500Page);
-        // root.innerHTML = ErrorPage({
-        //     errorNumber: 500,
-        //     errorMessage: 'Мы уже фиксим',
-        // });
         break;
     default:
         renderDOM('root', Error404Page);
@@ -50,7 +51,8 @@ const navArray = [
     { path: '/login', name: 'loginPage' },
     { path: '/signup', name: 'signupPage' },
     { path: '/profile', name: 'profilePage' },
-    { path: '/changepass', name: 'changePassPage' },
+    { path: '/password-change', name: 'changePassPage' },
+    { path: '/profile-change', name: 'changeProfilePage' },
     { path: '/500', name: 'error500Page' },
     { path: '/incorrectName', name: 'error404Page' },
 ];

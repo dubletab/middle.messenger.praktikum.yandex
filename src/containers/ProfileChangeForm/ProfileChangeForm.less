@@ -1,6 +1,6 @@
 @import '../../style.less';
 
-.profile {
+.profile-change {
     width: 510px;
     &--logo {
         display: flex;
@@ -25,5 +25,21 @@
     }
     &--data {
         margin-bottom: 50px;
+    }
+
+    &--submit {
+        display: flex;
+        flex-direction: column;
+        flex: 0 0 auto;
+        input {
+            background: @color-blue;
+            height: 37px;
+            border-radius: 8px;
+            font-size: 13px;
+            line-height: 13px;
+            color: #ffffff;
+            margin-bottom: 14px;
+            cursor: pointer;
+        }
     }
 }

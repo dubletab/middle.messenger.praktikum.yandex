@@ -6,7 +6,7 @@ import './ProfileForm.less';
 export default class ProfileForm extends Block {
     render() {
         return this.compile(tpl, {
-            profileData: this.props.settingsData,
+            profileData: this.props.profileData,
             settingsData: this.props.settingsData,
         });
     }

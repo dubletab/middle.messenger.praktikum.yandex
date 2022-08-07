@@ -9,6 +9,7 @@ export default class Input extends Block {
             name: this.props.name,
             id: this.props.id,
             type: this.props.type,
+            required: this.props.required,
         });
     }
 }

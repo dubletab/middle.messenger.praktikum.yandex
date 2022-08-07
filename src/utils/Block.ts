@@ -119,6 +119,12 @@ class Block {
         });
     }
 
+    _addClassNames() {
+        const { className = '' } = this.props;
+        if (!className) return;
+        this._element.classList.add(className);
+    }
+
     _addAttributes() {
         const { attr = {} } = this.props;
 
@@ -161,6 +167,7 @@ class Block {
         this._element.appendChild(block);
         this._addAttributes();
         this._addEvents();
+        this._addClassNames();
     }
 
     render(): DocumentFragment {
