@@ -122,7 +122,13 @@ class Block {
     _addClassNames() {
         const { className = '' } = this.props;
         if (!className) return;
-        this._element.classList.add(className);
+        if (isArray(className)) {
+            className.forEach(el => {
+                this._element.classList.add(el);
+            });
+        } else {
+            this._element.classList.add(className);
+        }
     }
 
     _addAttributes() {

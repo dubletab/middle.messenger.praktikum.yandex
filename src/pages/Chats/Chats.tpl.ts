@@ -1,4 +1,4 @@
-<div class='chats-wrapper'>
+export const tpl = `<div class='chats-wrapper'>
     <div class='chats'>
         <div class='chats-header'>
             <button>Профиль ></button>
@@ -23,14 +23,6 @@
                 {{{this}}}
             {{/each}}
         </div>
-        <div class='chats-messages--input'>
-            <div class='chats-messages--input-files'></div>
-            <textarea
-                class='chats-messages--input-input'
-                placeholder='Сообщение'
-                rows='1'
-            ></textarea>
-            <div class='chats-messages--input-submit'>></div>
-        </div>
+            {{{messageTyping}}}
     </div>
-</div>
+</div>`;

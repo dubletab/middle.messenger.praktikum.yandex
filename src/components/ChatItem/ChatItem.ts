@@ -1,6 +1,16 @@
 import { tpl } from './ChatItem.temp';
-import * as Handlebars from 'handlebars';
+import Block from '../../utils/Block';
 
 import './ChatItem.less';
 
-export const ChatItem: any = (props: any) => Handlebars.compile(tpl)(props);
+export default class ChatItem extends Block {
+    render() {
+        return this.compile(tpl, {
+            name: this.props.name,
+            message: this.props.message,
+            time: this.props.time,
+            newMessages: this.props.newMessages,
+            logo: this.props.logo,
+        });
+    }
+}

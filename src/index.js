@@ -3,7 +3,7 @@ import Error404Page from './pages/Error404/Error404';
 import Error500Page from './pages/Error500/Error500';
 import LoginPage from './pages/Login/Login';
 import SignupPage from './pages/SignUp/SignUp';
-// import ChatsPage from './pages/Chats/Chats.js';
+import ChatsPage from './pages/Chats/Chats';
 import PasswordChangePage from './pages/PasswordChangePage/PasswordChangePage';
 import ProfileChangePage from './pages/ProfileChangePage/ProfileChangePage';
 import renderDOM from './utils/renderDOM';
@@ -15,7 +15,7 @@ const path = window.location.pathname;
 
 switch (path) {
     case '/':
-        // root.innerHTML = ChatsPage();
+        renderDOM('root', ChatsPage);
         break;
     case '/login':
         renderDOM('root', LoginPage);
