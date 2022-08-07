@@ -3,78 +3,54 @@ import ProfileChangeForm from '../../containers/ProfileChangeForm/ProfileChangeF
 import ChangeInfoLine from '../../components/ChangeInfoLine/ChangeInfoLine';
 import Validation from '../../utils/Validation';
 
+const validation = new Validation();
+
 const templateData = [
     {
-        item: 'Почта',
-        info: 'pochta@yandex.ru',
-        id: 'email',
-        required: true,
+        item: 'Старый пароль',
+        info: '123ZXCv!123',
+        id: 'old_password',
     },
     {
-        item: 'Логин',
-        info: 'ivanivanov',
-        id: 'login',
-        required: true,
-    },
-    { item: 'Имя', info: 'Иван', id: 'first_name', required: true },
-    { item: 'Фамилия', info: 'Иванов', id: 'second_name', required: true },
-    {
-        item: 'Имя в чате',
-        info: 'Иван',
-        id: 'display_name',
-        required: true,
+        item: 'Новый пароль',
+        info: '123ZXCv!',
+        id: 'password',
     },
     {
-        item: 'Телефон',
-        info: '+79099673030',
-        id: 'phone',
-        required: true,
+        item: 'Повторите новый пароль',
+        info: '123ZXCv!',
+        id: 'confirm_password',
     },
 ];
-
-const validation = new Validation();
 
 const profileData = templateData.map(el => {
     return new ChangeInfoLine('div', {
         ...el,
         className: 'change-info-line',
-        events: el?.required
-            ? {
-                  focus: event => {
-                      validation.hideError(event.target);
-                  },
-                  blur: event => {
-                      if (event.target.id === 'login') {
-                          if (!validation.login(event.target.value)) {
-                              validation.showError(event.target);
-                          }
-                      }
-                      if (event.target.id === 'email') {
-                          if (!validation.email(event.target.value)) {
-                              validation.showError(event.target);
-                          }
-                      }
-                      if (event.target.id === 'phone') {
-                          if (!validation.phone(event.target.value)) {
-                              validation.showError(event.target);
-                          }
-                      }
-                      if (event.target.id === 'display_name') {
-                          if (!validation.checkEmptyValue(event.target.value)) {
-                              validation.showError(event.target);
-                          }
-                      }
-                      if (
-                          event.target.id === 'first_name' ||
-                          event.target.id === 'second_name'
-                      ) {
-                          if (!validation.names(event.target.value)) {
-                              validation.showError(event.target);
-                          }
-                      }
-                  },
-              }
-            : {},
+        required: true,
+        type: 'password',
+        events: {
+            focus: event => {
+                validation.hideError(event.target);
+            },
+            blur: event => {
+                if (event.target.id === 'confirm_password') {
+                    if (
+                        !validation.confirmPassword(
+                            event.target,
+                            event.target.value,
+                        )
+                    ) {
+                        validation.showError(event.target);
+                    }
+                }
+                if (event.target.id === 'password') {
+                    if (!validation.password(event.target.value)) {
+                        validation.showError(event.target);
+                    }
+                }
+            },
+        },
     });
 });
 

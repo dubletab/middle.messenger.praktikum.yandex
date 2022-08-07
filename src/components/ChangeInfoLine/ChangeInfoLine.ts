@@ -9,6 +9,7 @@ export default class ChangeInfoLine extends Block {
             item: this.props.item,
             info: this.props.info,
             id: this.props.id,
+            type: this.props.type,
             classNames: this.props.classNames,
             required: this.props.required,
         });

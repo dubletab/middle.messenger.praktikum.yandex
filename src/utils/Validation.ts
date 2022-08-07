@@ -38,7 +38,7 @@ export default class Validation {
                 }
                 return;
             }
-            if (input.id === 'display_name') {
+            if (input.id === 'display_name' || input.id === 'old_password') {
                 if (!this.checkEmptyValue(input.value)) {
                     this.showError(input);
                 }
