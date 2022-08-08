@@ -6,6 +6,7 @@ import MessageTypingForm from '../../containers/MessageTypingForm/MessageTypingF
 import Validation from '../../utils/Validation';
 
 import './Chats.less';
+import { ITempObj } from '../../utils/Interfaces';
 
 class Chats extends Block {
     render() {
@@ -180,14 +181,15 @@ const ChatsPage = new Chats('div', {
     messageTyping: new MessageTypingForm('form', {
         className: 'message-typing-form',
         events: {
-            submit: event => {
+            submit: (event: Event) => {
                 event.preventDefault();
-                if (validation.check(event.target)) {
-                    const inputFields = event.target.querySelectorAll(
+                const target = event.target as HTMLFormElement;
+                if (validation.check(target)) {
+                    const inputFields = target.querySelectorAll(
                         '[data-required=true]',
                     );
-                    const data = {};
-                    inputFields.forEach(current => {
+                    const data: ITempObj = {};
+                    inputFields.forEach((current: HTMLInputElement) => {
                         data[current.id] = current.value;
                     });
                     console.log(data);

@@ -2,6 +2,7 @@ import * as Handlebars from 'handlebars';
 import { v4 as makeUUID } from 'uuid';
 import EventBus from './EventBus';
 import isArray = Handlebars.Utils.isArray;
+import { ITempObj } from './Interfaces';
 
 class Block {
     static EVENTS = {
@@ -19,9 +20,9 @@ class Block {
 
     public children: object;
 
-    public props;
+    public props: ITempObj;
 
-    public _id: string = null;
+    public _id: string = '';
 
     constructor(tagName = 'div', propsAndChildren: object = {}) {
         const { children, props } = this._getChildren(propsAndChildren);
@@ -42,8 +43,8 @@ class Block {
     }
 
     _getChildren(propsAndChildren: object) {
-        const children = {};
-        const props = {};
+        const children: { [key: string]: Block } = {};
+        const props: ITempObj = {};
 
         Object.entries(propsAndChildren).forEach(([key, value]) => {
             if (value instanceof Block) {
@@ -57,7 +58,7 @@ class Block {
         return { children, props };
     }
 
-    _registerEvents(eventBus): void {
+    _registerEvents(eventBus: EventBus): void {
         eventBus.on(Block.EVENTS.INIT, this.init.bind(this));
         eventBus.on(Block.EVENTS.FLOW_CDM, this._componentDidMount.bind(this));
         eventBus.on(Block.EVENTS.FLOW_RENDER, this._render.bind(this));
@@ -80,7 +81,7 @@ class Block {
 
         Object.values(this.children).forEach(child => {
             if (isArray(child)) {
-                child.forEach(ch => ch.dispatchComponentDidMount());
+                child.forEach((ch: Block) => ch.dispatchComponentDidMount());
             } else {
                 child.dispatchComponentDidMount();
             }
@@ -93,14 +94,17 @@ class Block {
         this.eventBus().emit(Block.EVENTS.FLOW_CDM);
     }
 
-    _componentDidUpdate(oldProps, newProps): void {
+    _componentDidUpdate(oldProps: ITempObj, newProps: ITempObj): void {
         const response = this.componentDidUpdate(oldProps, newProps);
         if (response) {
             this._render();
         }
     }
 
-    componentDidUpdate(oldProps, newProps): boolean {
+    componentDidUpdate(oldProps: ITempObj, newProps: ITempObj): boolean {
+        if (oldProps || newProps) {
+            return true;
+        }
         return true;
     }
 
@@ -123,11 +127,12 @@ class Block {
         const { className = '' } = this.props;
         if (!className) return;
         if (isArray(className)) {
-            className.forEach(el => {
+            //@ts-ignore
+            className.forEach((el: string) => {
                 this._element.classList.add(el);
             });
         } else {
-            this._element.classList.add(className);
+            this._element.classList.add(className as string);
         }
     }
 
@@ -154,7 +159,7 @@ class Block {
         });
     }
 
-    setProps = nextProps => {
+    setProps = (nextProps: ITempObj) => {
         if (!nextProps) {
             return;
         }
@@ -170,13 +175,13 @@ class Block {
         const block = this.render();
         this._removeEvents();
         this._element.innerHTML = '';
-        this._element.appendChild(block);
+        this._element.appendChild(block as Node);
         this._addAttributes();
         this._addEvents();
         this._addClassNames();
     }
 
-    render(): DocumentFragment {
+    render(): DocumentFragment | null {
         return null;
     }
 
@@ -184,7 +189,7 @@ class Block {
         return this.element;
     }
 
-    _makePropsProxy(props) {
+    _makePropsProxy(props: ITempObj) {
         const self = this;
 
         return new Proxy(props, {
@@ -198,7 +203,7 @@ class Block {
                     throw new Error('Доступ отсутствует!');
                 }
 
-                const value = target[prop];
+                const value = target[prop] as any;
                 return typeof value === 'function' ? value.bind(target) : value;
             },
             deleteProperty() {
@@ -208,11 +213,14 @@ class Block {
     }
 
     compile(template: string, props: object) {
-        const propsAndStubs = { ...props };
+        const propsAndStubs: { [key: string]: string | Block | [] } = {
+            ...props,
+        };
         Object.entries(this.children).forEach(([key, child]) => {
             if (isArray(child)) {
                 propsAndStubs[key] = [];
-                child.forEach(ch => {
+                child.forEach((ch: Block) => {
+                    //@ts-ignore
                     propsAndStubs[key].push(`<div data-id="${ch._id}"></div>`);
                 });
             } else {
@@ -220,11 +228,11 @@ class Block {
             }
         });
 
-        const fragment = this._createDocumentElement('template');
+        const fragment: any = this._createDocumentElement('template');
         fragment.innerHTML = Handlebars.compile(template)(propsAndStubs);
         Object.values(this.children).forEach(child => {
             if (isArray(child)) {
-                child.forEach(ch => {
+                child.forEach((ch: Block) => {
                     const stub = fragment.content.querySelector(
                         `[data-id="${ch._id}"]`,
                     );
@@ -240,7 +248,7 @@ class Block {
         return fragment.content;
     }
 
-    _createDocumentElement(tagName) {
+    _createDocumentElement(tagName: string) {
         const element = document.createElement(tagName);
         if (this.props.settings?.withInternalID) {
             element.setAttribute('data-id', this._id);

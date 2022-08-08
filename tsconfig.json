@@ -1,17 +1,4 @@
-//{
-//  "compilerOptions": {
-//    "module": "commonjs",
-//    "target": "es2019",
-//    "sourceMap": true,
-//    "noImplicitAny": true,
-//    "noUnusedLocals": true,
-//    "noUnusedParameters": true,
-//    "strictNullChecks": true
-//  },
-//  "exclude": [
-//    "node_modules"
-//  ]
-//}
+
 
 {
   "compilerOptions": {
@@ -19,9 +6,11 @@
     "target": "es2017",
     "declaration": false,
     "module": "commonjs",
-    "strictNullChecks": false,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "strictNullChecks": true,
     "sourceMap": true,
-    "noImplicitAny": false,
+    "noImplicitAny": true,
     "esModuleInterop": true
   }
 }

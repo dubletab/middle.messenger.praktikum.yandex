@@ -1,4 +1,6 @@
-class HTTPTransport {
+import { IOptionsTransfer, ITempObj } from './Interfaces';
+
+export default class HTTPTransport {
     METHODS = {
         GET: 'GET',
         PUT: 'PUT',
@@ -6,7 +8,7 @@ class HTTPTransport {
         DELETE: 'DELETE',
     };
 
-    queryStringify(data: object) {
+    queryStringify(data: ITempObj) {
         const keys = Object.keys(data);
         return keys.reduce(
             (result, key, index) =>
@@ -18,25 +20,37 @@ class HTTPTransport {
     }
 
     get = (url: string, options = {}) =>
-        this.request(url, { ...options, method: this.METHODS.GET });
+        this.request(url, {
+            ...options,
+            method: this.METHODS.GET,
+        } as IOptionsTransfer);
 
     put = (url: string, options = {}) =>
-        this.request(url, { ...options, method: this.METHODS.PUT });
+        this.request(url, {
+            ...options,
+            method: this.METHODS.PUT,
+        } as IOptionsTransfer);
 
     post = (url: string, options = {}) =>
-        this.request(url, { ...options, method: this.METHODS.POST });
+        this.request(url, {
+            ...options,
+            method: this.METHODS.POST,
+        } as IOptionsTransfer);
 
     delete = (url: string, options = {}) =>
-        this.request(url, { ...options, method: this.METHODS.DELETE });
+        this.request(url, {
+            ...options,
+            method: this.METHODS.DELETE,
+        } as IOptionsTransfer);
 
-    request = (url: string, options) =>
+    request = (url: string, options: IOptionsTransfer) =>
         new Promise((resolve, reject) => {
             const xhr = new XMLHttpRequest();
 
             xhr.open(
                 options.method,
                 options.method === this.METHODS.GET && !!options.data
-                    ? `${url}${this.queryStringify(options.data)}`
+                    ? `${url}${this.queryStringify(options.data as ITempObj)}`
                     : url,
             );
             if (options.headers) {
@@ -62,7 +76,7 @@ class HTTPTransport {
             if (options.method === this.METHODS.GET || !options.data) {
                 xhr.send();
             } else {
-                xhr.send(options.data);
+                xhr.send(options.data as XMLHttpRequestBodyInit);
             }
         });
 }

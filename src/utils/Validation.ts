@@ -24,14 +24,16 @@ export default class Validation {
         /^[A-ZА-Я]+[A-Za-zа-яА-Я-]+$/.test(value) &&
         this.checkEmptyValue(value);
 
-    confirmPassword = (input, value: string): boolean =>
-        input.closest('form').querySelector('#password').value === value &&
-        this.checkEmptyValue(value);
+    confirmPassword = (input: HTMLInputElement, value: string): boolean => {
+        const form = input.closest('form') as HTMLFormElement;
+        const inputInForm = form.querySelector('#password') as HTMLInputElement;
+        return inputInForm.value === value && this.checkEmptyValue(value);
+    };
 
-    check = (form): boolean => {
+    check = (form: HTMLFormElement): boolean => {
         let isValid = true;
         const inputs = form.querySelectorAll('[data-required=true]');
-        inputs.forEach(input => {
+        inputs.forEach((input: HTMLInputElement) => {
             if (input.id === 'confirm_password') {
                 if (!this.confirmPassword(input, input.value)) {
                     this.showError(input);
@@ -44,7 +46,9 @@ export default class Validation {
                 }
                 return;
             }
+
             if (
+                // @ts-ignore
                 !this[
                     input.id === 'first_name' || input.id === 'second_name'
                         ? 'names'
@@ -65,15 +69,15 @@ export default class Validation {
 
     checkValueOnNumbers = (value: string): boolean => /^\d+$/.test(value);
 
-    showError = (input, message?: string): void => {
-        const errorContainer = input.nextElementSibling;
+    showError = (input: HTMLInputElement, message?: string): void => {
+        const errorContainer = input.nextElementSibling as HTMLElement;
         errorContainer.textContent = message
             ? message
             : `${input.id} заполнен неверно`;
     };
 
     hideError = (input: HTMLInputElement): void => {
-        const errorContainer = input.nextElementSibling;
+        const errorContainer = input.nextElementSibling as HTMLElement;
         errorContainer.textContent = '';
     };
 }

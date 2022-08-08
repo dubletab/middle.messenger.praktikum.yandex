@@ -2,6 +2,7 @@ import WrapperCenterPage from '../../layout/WrapperCenterPage/WrapperCenterPage'
 import ProfileChangeForm from '../../containers/ProfileChangeForm/ProfileChangeForm';
 import ChangeInfoLine from '../../components/ChangeInfoLine/ChangeInfoLine';
 import Validation from '../../utils/Validation';
+import { ITempObj } from '../../utils/Interfaces';
 
 const templateData = [
     {
@@ -45,36 +46,34 @@ const profileData = templateData.map(el => {
         required: true,
         type: el.id === 'phone' ? 'tel' : 'text',
         events: {
-            focus: event => {
-                validation.hideError(event.target);
+            focus: (event: Event) => {
+                validation.hideError(event.target as HTMLInputElement);
             },
-            blur: event => {
-                if (event.target.id === 'login') {
-                    if (!validation.login(event.target.value)) {
-                        validation.showError(event.target);
+            blur: (event: Event) => {
+                const target = event.target as HTMLInputElement;
+                if (target.id === 'login') {
+                    if (!validation.login(target.value)) {
+                        validation.showError(target);
                     }
                 }
-                if (event.target.id === 'email') {
-                    if (!validation.email(event.target.value)) {
-                        validation.showError(event.target);
+                if (target.id === 'email') {
+                    if (!validation.email(target.value)) {
+                        validation.showError(target);
                     }
                 }
-                if (event.target.id === 'phone') {
-                    if (!validation.phone(event.target.value)) {
-                        validation.showError(event.target);
+                if (target.id === 'phone') {
+                    if (!validation.phone(target.value)) {
+                        validation.showError(target);
                     }
                 }
-                if (event.target.id === 'display_name') {
-                    if (!validation.checkEmptyValue(event.target.value)) {
-                        validation.showError(event.target);
+                if (target.id === 'display_name') {
+                    if (!validation.checkEmptyValue(target.value)) {
+                        validation.showError(target);
                     }
                 }
-                if (
-                    event.target.id === 'first_name' ||
-                    event.target.id === 'second_name'
-                ) {
-                    if (!validation.names(event.target.value)) {
-                        validation.showError(event.target);
+                if (target.id === 'first_name' || target.id === 'second_name') {
+                    if (!validation.names(target.value)) {
+                        validation.showError(target);
                     }
                 }
             },
@@ -86,14 +85,15 @@ const ProfileChangePage = new WrapperCenterPage('div', {
     children: new ProfileChangeForm('div', {
         profileData,
         events: {
-            submit: event => {
+            submit: (event: Event) => {
                 event.preventDefault();
-                if (validation.check(event.target)) {
-                    const inputFields = event.target.querySelectorAll(
+                const target = event.target as HTMLFormElement;
+                if (validation.check(target)) {
+                    const inputFields = target.querySelectorAll(
                         '[data-required=true]',
                     );
-                    const data = {};
-                    inputFields.forEach(current => {
+                    const data: ITempObj = {};
+                    inputFields.forEach((current: HTMLInputElement) => {
                         data[current.id] = current.value;
                     });
                     console.log(data);
