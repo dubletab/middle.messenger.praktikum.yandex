@@ -1,8 +1,8 @@
 import WrapperCenterPage from '../../layout/WrapperCenterPage/WrapperCenterPage';
 import ErrorPageBlock from '../../components/ErrorPageBlock/ErrorPageBlock';
 
-const Error500Page = new WrapperCenterPage('div', {
-    children: new ErrorPageBlock('div', {
+const Error500Page = new WrapperCenterPage({
+    children: new ErrorPageBlock({
         errorNumber: 500,
         errorMessage: 'Мы уже фиксим',
     }),

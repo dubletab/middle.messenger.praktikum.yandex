@@ -24,44 +24,43 @@ const templateData = [
     },
 ];
 
-const profileData = templateData.map(el => {
-    return new ChangeInfoLine('div', {
-        ...el,
-        className: 'change-info-line',
-        required: true,
-        type: 'password',
-        events: {
-            focus: (event: Event) => {
-                validation.hideError(event.target as HTMLInputElement);
-            },
-            blur: (event: Event) => {
-                const target = event.target as HTMLInputElement;
-                if (target.id === 'confirm_password') {
-                    if (!validation.confirmPassword(target, target.value)) {
-                        validation.showError(target);
+const profileData = templateData.map(
+    (el) =>
+        new ChangeInfoLine({
+            ...el,
+            className: 'change-info-line',
+            required: true,
+            type: 'password',
+            events: {
+                focus: (event: Event) => {
+                    validation.hideError(event.target as HTMLInputElement);
+                },
+                blur: (event: Event) => {
+                    const target = event.target as HTMLInputElement;
+                    if (target.id === 'confirm_password') {
+                        if (!validation.confirmPassword(target, target.value)) {
+                            validation.showError(target);
+                        }
                     }
-                }
-                if (target.id === 'password') {
-                    if (!validation.password(target.value)) {
-                        validation.showError(target);
+                    if (target.id === 'password') {
+                        if (!validation.password(target.value)) {
+                            validation.showError(target);
+                        }
                     }
-                }
+                },
             },
-        },
-    });
-});
+        }),
+);
 
-const PasswordChangePage = new WrapperCenterPage('div', {
-    children: new ProfileChangeForm('div', {
+const PasswordChangePage = new WrapperCenterPage({
+    children: new ProfileChangeForm({
         profileData,
         events: {
             submit: (event: Event) => {
                 event.preventDefault();
                 const target = event.target as HTMLFormElement;
                 if (validation.check(target)) {
-                    const inputFields = target.querySelectorAll(
-                        '[data-required=true]',
-                    );
+                    const inputFields = target.querySelectorAll('[data-required=true]');
                     const data: ITempObj = {};
                     inputFields.forEach((current: HTMLInputElement) => {
                         data[current.id] = current.value;

@@ -145,20 +145,19 @@ const templateChatData = [
     },
 ];
 
-const chatData = templateChatData.map(el => {
-    return new ChatItem('div', {
-        ...el,
-    });
-});
+const chatData = templateChatData.map(
+    (el) =>
+        new ChatItem({
+            ...el,
+        }),
+);
 
 const templateMessageData = [
     { text: 'Hello World!', time: '15:59', isFromMe: true },
     { text: 'Goodbye world!', time: '15:59' },
     {
-        text:
-            'С другой стороны консультация с профессионалами из IT требует от нас системного анализа соответствующих условий активизации. Повседневная практика показывает, что реализация намеченного плана развития создаёт предпосылки качественно новых шагов для направлений прогрессивного развития! Значимость этих проблем настолько очевидна, что начало повседневной работы по формированию позиции позволяет оценить значение новых предложений.\n' +
-            '\n' +
-            'Равным образом сложившаяся структура организации напрямую зависит от форм воздействия. Задача организации, в особенности же сложившаяся структура организации напрямую зависит от экономической целесообразности принимаемых решений? Равным образом постоянное информационно-техническое обеспечение нашей деятельности способствует повышению актуальности всесторонне сбалансированных нововведений. Задача организации, в особенности же курс на социально-ориентированный национальный проект играет важную роль в формировании направлений прогрессивного развития.',
+        // eslint-disable-next-line max-len
+        text: 'С другой стороны консультация с профессионалами из IT требует от нас системного анализа соответствующих условий активизации. Повседневная практика показывает, что реализация намеченного плана развития создаёт предпосылки качественно новых шагов для направлений прогрессивного развития! Значимость этих проблем настолько очевидна, что начало повседневной работы по формированию позиции позволяет оценить значение новых предложений.\n Равным образом сложившаяся структура организации напрямую зависит от форм воздействия. Задача организации, в особенности же сложившаяся структура организации напрямую зависит от экономической целесообразности принимаемых решений? Равным образом постоянное информационно-техническое обеспечение нашей деятельности способствует повышению актуальности всесторонне сбалансированных нововведений. Задача организации, в особенности же курс на социально-ориентированный национальный проект играет важную роль в формировании направлений прогрессивного развития.',
         time: '15:59',
         isFromMe: true,
     },
@@ -170,37 +169,39 @@ const templateMessageData = [
     { text: 'Test text', time: '15:59' },
 ];
 
-const messageData = templateMessageData.map(el => {
-    return new Message('div', {
-        ...el,
-        className: el.isFromMe ? ['message', 'message-from-me'] : 'message',
-    });
-});
+const messageData = templateMessageData.map(
+    (el) =>
+        new Message({
+            ...el,
+            className: el.isFromMe ? ['message', 'message-from-me'] : 'message',
+        }),
+);
 
-const ChatsPage = new Chats('div', {
+const ChatsPage = new Chats({
     chatData,
     messageData,
-    messageTyping: new MessageTypingForm('form', {
-        className: 'message-typing-form',
-        events: {
-            submit: (event: Event) => {
-                event.preventDefault();
-                const target = event.target as HTMLFormElement;
-                if (validation.check(target)) {
-                    const inputFields = target.querySelectorAll(
-                        '[data-required=true]',
-                    );
-                    const data: ITempObj = {};
-                    inputFields.forEach((current: HTMLInputElement) => {
-                        data[current.id] = current.value;
-                    });
-                    console.log(data);
-                } else {
-                    console.log('Введите сообщение');
-                }
+    messageTyping: new MessageTypingForm(
+        {
+            className: 'message-typing-form',
+            events: {
+                submit: (event: Event) => {
+                    event.preventDefault();
+                    const target = event.target as HTMLFormElement;
+                    if (validation.check(target)) {
+                        const inputFields = target.querySelectorAll('[data-required=true]');
+                        const data: ITempObj = {};
+                        inputFields.forEach((current: HTMLInputElement) => {
+                            data[current.id] = current.value;
+                        });
+                        console.log(data);
+                    } else {
+                        console.log('Введите сообщение');
+                    }
+                },
             },
         },
-    }),
+        'form',
+    ),
 });
 
 export default ChatsPage;

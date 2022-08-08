@@ -23,12 +23,13 @@ const templateProfileData = [
     },
 ];
 
-const profileData = templateProfileData.map(el => {
-    return new InfoLine('div', {
-        ...el,
-        className: 'info-line',
-    });
-});
+const profileData = templateProfileData.map(
+    (el) =>
+        new InfoLine({
+            ...el,
+            className: 'info-line',
+        }),
+);
 
 const templateSettingsData = [
     { item: 'Изменить данные' },
@@ -39,15 +40,16 @@ const templateSettingsData = [
     },
 ];
 
-const settingsData = templateSettingsData.map(el => {
-    return new InfoLine('div', {
-        ...el,
-        className: 'info-line',
-    });
-});
+const settingsData = templateSettingsData.map(
+    (el) =>
+        new InfoLine({
+            ...el,
+            className: 'info-line',
+        }),
+);
 
-const ProfilePage = new WrapperCenterPage('div', {
-    children: new ProfileForm('div', { profileData, settingsData }),
+const ProfilePage = new WrapperCenterPage({
+    children: new ProfileForm({ profileData, settingsData }),
 });
 
 export default ProfilePage;
