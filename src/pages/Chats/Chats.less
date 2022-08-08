@@ -1,3 +1,5 @@
+@import '../../style.less';
+
 .chats-wrapper {
     width: 100vw;
     height: 100vh;
@@ -20,13 +22,13 @@
         display: flex;
         flex-direction: column;
         padding: 14px 10px;
-        border-bottom: 1px solid #eaeaea;
+        border-bottom: 1px solid @color-gray-20;
         button {
             margin: 6px 0 21px 0;
             background: transparent;
             width: 70px;
             align-self: end;
-            color: #999999;
+            color: @color-gray-40;
         }
         input {
             background: #efefef;
@@ -35,7 +37,7 @@
             text-align: center;
             &::placeholder {
                 text-align: center;
-                color: #999999;
+                color: @color-gray-40;
             }
         }
     }
@@ -52,7 +54,7 @@
     flex-direction: column;
     padding: 10px 20px;
     &--head {
-        border-bottom: 1px solid #eaeaea;
+        border-bottom: 1px solid @color-gray-20;
         display: flex;
         padding-bottom: 10px;
         &-logo {
@@ -83,14 +85,14 @@
         flex-direction: column;
     }
     &--input {
-        border-top: 1px solid #eaeaea;
+        border-top: 1px solid @color-gray-20;
         padding-top: 10px;
         display: flex;
         align-items: center;
         &-files {
             height: 32px;
             width: 32px;
-            background: #999999;
+            background: @color-gray-40;
         }
         &-input {
             background: #efefef;
@@ -100,11 +102,11 @@
             flex: 1;
             resize: none;
             &::placeholder {
-                color: #999999;
+                color: @color-gray-40;
             }
         }
         &-submit {
-            background: #3369f3;
+            background: @color-blue;
             border-radius: 50%;
             width: 28px;
             height: 28px;

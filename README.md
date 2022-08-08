@@ -4,7 +4,19 @@
 
 - `npm run dev` — запуск версии для разработки,
 - `npm run build` — сборка стабильной версии,
-- `npm run start` — сборка стабильной версии и старт вебсервера на порту 3000 с раздачей статики.
+- `npm run start` — сборка стабильной версии и старт вебсервера на порту 3000 с раздачей статики,
+- `npm run lint` — запуск EsLint,
+- `npm run stylelint` — запуск Stylelint.
+
+Используемые технологии:
+1. JavaScript
+2. Typescript
+3. Less
+4. Handlebars
+5. NodeJS Express
+6. Parcel
+7. Eslint
+8. Stylelint
 
 Макеты Figma: https://www.figma.com/file/lTjtfhp89O2G2tSxPk9Zvm/%D0%A1%D0%90%D0%99%D0%A2?node-id=0%3A1
 

@@ -1,0 +1,36 @@
+@import '../../style';
+
+.message-typing-form {
+    border-top: 1px solid @color-gray-20;
+    padding-top: 10px;
+    display: flex;
+    align-items: center;
+    &-files {
+        height: 32px;
+        width: 32px;
+        background: @color-gray-40;
+    }
+    &-input {
+        background: #efefef;
+        border-radius: 30px;
+        padding: 10px 20px;
+        margin: 0 10px;
+        flex: 1;
+        resize: none;
+        &::placeholder {
+            color: @color-gray-40;
+        }
+    }
+    &-submit {
+        background: @color-blue;
+        border-radius: 50%;
+        width: 28px;
+        height: 28px;
+        color: #ffffff;
+        font-size: 18px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+    }
+}

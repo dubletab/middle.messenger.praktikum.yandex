@@ -1,0 +1,27 @@
+@import '../../style.less';
+
+.change-info-line {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+    flex-wrap: wrap;
+    &:not(:last-child) {
+        border-bottom: 1px solid @color-gray-20;
+    }
+    &--item {
+        flex: 0;
+        margin-right: 10px;
+        white-space: nowrap;
+    }
+    &--input {
+        flex: 1;
+        color: @color-gray-40;
+        text-align: end;
+    }
+    &--error {
+        color: @color-red;
+        width: 100%;
+        text-align: end;
+        font-size: 8px;
+    }
+}
