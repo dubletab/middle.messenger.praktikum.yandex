@@ -1,9 +1,18 @@
 import { tpl } from './ChangeInfoLine.tpl';
 import Block from '../../utils/Block';
+import { TPropsDefault } from '../../utils/Interfaces';
 
 import './ChangeInfoLine.less';
 
-export default class ChangeInfoLine extends Block {
+type TProps = {
+    item: string;
+    info: string;
+    id: string;
+    type: string;
+    required: boolean;
+} & TPropsDefault;
+
+export default class ChangeInfoLine extends Block<TProps> {
     render() {
         return this.compile(tpl, {
             item: this.props.item,

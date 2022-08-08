@@ -1,9 +1,15 @@
 import { tpl } from './Message.tpl';
 import Block from '../../utils/Block';
+import { TPropsDefault } from '../../utils/Interfaces';
 
 import './Message.less';
 
-export default class Message extends Block {
+type TProps = {
+    text: string;
+    time: string;
+} & TPropsDefault;
+
+export default class Message extends Block<TProps> {
     render() {
         return this.compile(tpl, {
             text: this.props.text,

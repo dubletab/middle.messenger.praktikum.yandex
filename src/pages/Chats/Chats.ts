@@ -4,11 +4,13 @@ import Message from '../../components/Message/Message';
 import ChatItem from '../../components/ChatItem/ChatItem';
 import MessageTypingForm from '../../containers/MessageTypingForm/MessageTypingForm';
 import Validation from '../../utils/Validation';
+import { ITempObj, TPropsDefault } from '../../utils/Interfaces';
 
 import './Chats.less';
-import { ITempObj } from '../../utils/Interfaces';
 
-class Chats extends Block {
+type TProps = {} & TPropsDefault;
+
+class Chats extends Block<TProps> {
     render() {
         return this.compile(tpl, {
             chatsData: this.props.chatsData,

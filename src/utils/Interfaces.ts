@@ -8,3 +8,7 @@ export interface IOptionsTransfer {
     timeout: number;
     headers: { [key: string]: string };
 }
+
+export type TPropsDefault = {
+    [propName: string]: any;
+};

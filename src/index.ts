@@ -67,5 +67,7 @@ navArray.forEach(item => {
         option.selected = 'selected';
     }
     option.textContent = item.name;
-    devNavigate.append(option);
+    if (devNavigate instanceof HTMLSelectElement) {
+        devNavigate.append(option);
+    }
 });

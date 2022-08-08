@@ -1,9 +1,12 @@
 import { tpl } from './WrapperCenterPage.tpl';
 import Block from '../../utils/Block';
+import { TPropsDefault } from '../../utils/Interfaces';
 
 import './WrapperCenterPage.less';
 
-export default class WrapperCenterPage extends Block {
+type TProps = {} & TPropsDefault;
+
+export default class WrapperCenterPage extends Block<TProps> {
     render() {
         return this.compile(tpl, {
             children: this.children,
