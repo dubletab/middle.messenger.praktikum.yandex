@@ -11,12 +11,12 @@ const navArray = [
     '/signup',
     '/profile',
     '/password-change',
-    'profile-change',
+    '/profile-change',
     '/500',
     '/incorrectName',
 ];
 
-navArray.forEach(item => {
+navArray.forEach((item) => {
     app.get(item, (req, res) => {
         res.sendFile(__dirname + '/dist/index.html');
     });
