@@ -1,8 +1,10 @@
+@import '../../style.less';
+
 .chat-item {
     height: 70px;
     padding: 10px;
     border-radius: 8px;
-    border-bottom: 1px solid #eaeaea;
+    border-bottom: 1px solid @color-gray-20;
     display: flex;
     &:hover {
         background: #e4edfd;
@@ -33,7 +35,7 @@
         }
         &-time {
             font-size: 9px;
-            color: #999999;
+            color: @color-gray-40;
         }
     }
 
@@ -43,7 +45,7 @@
         align-items: center;
         flex: 1;
         &-text {
-            color: #999999;
+            color: @color-gray-40;
             font-size: 12px;
             line-height: 15px;
             align-self: start;
@@ -63,7 +65,7 @@
                 height: 20px;
                 border-radius: 50%;
                 color: #ffffff;
-                background: #3369f3;
+                background: @color-blue;
                 display: flex;
                 justify-content: center;
                 align-items: center;
