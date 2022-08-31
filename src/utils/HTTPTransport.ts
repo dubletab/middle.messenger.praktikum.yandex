@@ -1,4 +1,5 @@
 import { IOptionsTransfer, ITempObj } from './Interfaces';
+import { queryStringify } from './helpers';
 
 export default class HTTPTransport {
     METHODS = {
@@ -7,17 +8,6 @@ export default class HTTPTransport {
         POST: 'POST',
         DELETE: 'DELETE',
     };
-
-    queryStringify(data: ITempObj) {
-        const keys = Object.keys(data);
-        return keys.reduce(
-            (result, key, index) =>
-                `${result}${key}=${data[key]}${
-                    index < keys.length - 1 ? '&' : ''
-                }`,
-            '?',
-        );
-    }
 
     get = (url: string, options = {}) =>
         this.request(url, {
@@ -50,11 +40,11 @@ export default class HTTPTransport {
             xhr.open(
                 options.method,
                 options.method === this.METHODS.GET && !!options.data
-                    ? `${url}${this.queryStringify(options.data as ITempObj)}`
+                    ? `${url}${queryStringify(options.data as ITempObj)}`
                     : url,
             );
             if (options.headers) {
-                Object.keys(options.headers).forEach(key => {
+                Object.keys(options.headers).forEach((key) => {
                     xhr.setRequestHeader(key, options.headers[key]);
                 });
             }

@@ -6,32 +6,32 @@ import { ITempObj } from '../../utils/Interfaces';
 
 const templateData = [
     {
-        item: 'Почта',
+        name: 'Почта',
         info: 'pochta@yandex.ru',
         id: 'email',
     },
     {
-        item: 'Логин',
+        name: 'Логин',
         info: 'ivanivanov',
         id: 'login',
     },
     {
-        item: 'Имя',
+        name: 'Имя',
         info: 'Иван',
         id: 'first_name',
     },
     {
-        item: 'Фамилия',
+        name: 'Фамилия',
         info: 'Иванов',
         id: 'second_name',
     },
     {
-        item: 'Имя в чате',
+        name: 'Имя в чате',
         info: 'Иван',
         id: 'display_name',
     },
     {
-        item: 'Телефон',
+        name: 'Телефон',
         info: '+79099673030',
         id: 'phone',
     },

@@ -8,17 +8,17 @@ const validation = new Validation();
 
 const templateData = [
     {
-        item: 'Старый пароль',
+        name: 'Старый пароль',
         info: '123ZXCv!123',
         id: 'old_password',
     },
     {
-        item: 'Новый пароль',
+        name: 'Новый пароль',
         info: '123ZXCv!',
         id: 'password',
     },
     {
-        item: 'Повторите новый пароль',
+        name: 'Повторите новый пароль',
         info: '123ZXCv!',
         id: 'confirm_password',
     },

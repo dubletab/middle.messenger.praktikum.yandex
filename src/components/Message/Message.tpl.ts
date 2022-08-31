@@ -1,3 +1,3 @@
 export const tpl = `
-        <p>{{text}}<span>{{time}}</span></p>
+        <p>{{text}}<time>{{time}}</time></p>
 `;
