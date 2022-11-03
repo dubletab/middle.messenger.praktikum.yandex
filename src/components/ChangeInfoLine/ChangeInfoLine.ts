@@ -6,21 +6,21 @@ import './ChangeInfoLine.less';
 
 type TProps = {
     name: string;
-    info: string;
     id: string;
     type: string;
     required: boolean;
+    info: string;
 } & TPropsDefault;
 
 export default class ChangeInfoLine extends Block<TProps> {
     render() {
         return this.compile(tpl, {
             name: this.props.name,
-            info: this.props.info,
             id: this.props.id,
             type: this.props.type,
-            classNames: this.props.classNames,
+            className: this.props.className,
             required: this.props.required,
+            info: this.props.info,
         });
     }
 }

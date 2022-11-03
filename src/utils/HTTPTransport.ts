@@ -1,7 +1,23 @@
-import { IOptionsTransfer, ITempObj } from './Interfaces';
+import { ITempObj } from './Interfaces';
 import { queryStringify } from './helpers';
 
+interface IOptionsTransfer {
+    data?: any;
+    method: string;
+    timeout?: number;
+    headers?: { [key: string]: string };
+    credentials?: string;
+    mode?: string;
+    body?: string;
+}
+
 export default class HTTPTransport {
+    private _instance: string;
+
+    constructor(url: string) {
+        this._instance = url;
+    }
+
     METHODS = {
         GET: 'GET',
         PUT: 'PUT',
@@ -10,32 +26,36 @@ export default class HTTPTransport {
     };
 
     get = (url: string, options = {}) =>
-        this.request(url, {
+        this.request(`${this._instance}${url}`, {
             ...options,
             method: this.METHODS.GET,
         } as IOptionsTransfer);
 
     put = (url: string, options = {}) =>
-        this.request(url, {
+        this.request(`${this._instance}${url}`, {
             ...options,
             method: this.METHODS.PUT,
         } as IOptionsTransfer);
 
-    post = (url: string, options = {}) =>
-        this.request(url, {
+    post = (url: string, options = {}) => {
+        // console.log(`${this._instance}${url}`, options);
+        return this.request(`${this._instance}${url}`, {
             ...options,
             method: this.METHODS.POST,
         } as IOptionsTransfer);
+    };
 
     delete = (url: string, options = {}) =>
-        this.request(url, {
+        this.request(`${this._instance}${url}`, {
             ...options,
             method: this.METHODS.DELETE,
         } as IOptionsTransfer);
 
-    request = (url: string, options: IOptionsTransfer) =>
+    request = (url: string, options: IOptionsTransfer = { method: this.METHODS.GET }) =>
         new Promise((resolve, reject) => {
             const xhr = new XMLHttpRequest();
+
+            xhr.withCredentials = true;
 
             xhr.open(
                 options.method,
@@ -45,7 +65,9 @@ export default class HTTPTransport {
             );
             if (options.headers) {
                 Object.keys(options.headers).forEach((key) => {
-                    xhr.setRequestHeader(key, options.headers[key]);
+                    if (options.headers) {
+                        xhr.setRequestHeader(key, options.headers[key]);
+                    }
                 });
             }
 
@@ -63,10 +85,10 @@ export default class HTTPTransport {
 
             xhr.ontimeout = reject;
 
-            if (options.method === this.METHODS.GET || !options.data) {
+            if (options.method === this.METHODS.GET || !options.body) {
                 xhr.send();
             } else {
-                xhr.send(options.data as XMLHttpRequestBodyInit);
+                xhr.send(options.body);
             }
         });
 }

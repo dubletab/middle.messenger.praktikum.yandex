@@ -2,13 +2,19 @@ import Input from '../../components/Input/Input';
 import SignForm from '../../containers/SignForm/SignForm';
 import WrapperCenterPage from '../../layout/WrapperCenterPage/WrapperCenterPage';
 import Validation from '../../utils/Validation';
-import { ITempObj } from '../../utils/Interfaces';
+// import { ITempObj } from '../../utils/Interfaces';
+import { LoginController } from '../../controllers/login.ctrl';
 
 const templateForm = [
     { id: 'login', name: 'Логин', type: 'text' },
     { id: 'password', name: 'Пароль', type: 'password' },
 ];
 const validation = new Validation();
+
+interface LoginFormModel {
+    login: string;
+    password: string;
+}
 
 const forms = templateForm.map(
     (el) =>
@@ -48,14 +54,17 @@ const LoginPage = new WrapperCenterPage({
             submit: (event: Event) => {
                 event.preventDefault();
                 const target = event.target as HTMLFormElement;
-                if (validation.check(target)) {
-                    const inputFields = target.querySelectorAll('[data-required=true]');
-                    const data: ITempObj = {};
-                    inputFields.forEach((current: HTMLInputElement) => {
-                        data[current.id] = current.value;
-                    });
-                    console.log(data);
-                }
+                // if (validation.check(target)) {
+                const inputFields = target.querySelectorAll('[data-required=true]');
+                const data: LoginFormModel = {
+                    login: '',
+                    password: '',
+                };
+                inputFields.forEach((current: HTMLInputElement) => {
+                    // @ts-ignore
+                    data[current.id] = current.value;
+                });
+                LoginController.login(data, target);
             },
         },
     }),

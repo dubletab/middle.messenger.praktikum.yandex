@@ -3,23 +3,21 @@ import ProfileChangeForm from '../../containers/ProfileChangeForm/ProfileChangeF
 import ChangeInfoLine from '../../components/ChangeInfoLine/ChangeInfoLine';
 import Validation from '../../utils/Validation';
 import { ITempObj } from '../../utils/Interfaces';
+import { UserController } from '../../controllers/profile.ctrl';
 
 const validation = new Validation();
 
 const templateData = [
     {
         name: 'Старый пароль',
-        info: '123ZXCv!123',
         id: 'old_password',
     },
     {
         name: 'Новый пароль',
-        info: '123ZXCv!',
         id: 'password',
     },
     {
         name: 'Повторите новый пароль',
-        info: '123ZXCv!',
         id: 'confirm_password',
     },
 ];
@@ -31,6 +29,7 @@ const profileData = templateData.map(
             className: 'change-info-line',
             required: true,
             type: 'password',
+            info: '',
             events: {
                 focus: (event: Event) => {
                     validation.hideError(event.target as HTMLInputElement);
@@ -63,8 +62,13 @@ const PasswordChangePage = new WrapperCenterPage({
                     const inputFields = target.querySelectorAll('[data-required=true]');
                     const data: ITempObj = {};
                     inputFields.forEach((current: HTMLInputElement) => {
-                        data[current.id] = current.value;
+                        if (current.id === 'password') {
+                            data.newPassword = current.value;
+                        } else if (current.id === 'old_password') {
+                            data.oldPassword = current.value;
+                        }
                     });
+                    UserController.changeUserPassword(data);
                     console.log(data);
                 }
             },

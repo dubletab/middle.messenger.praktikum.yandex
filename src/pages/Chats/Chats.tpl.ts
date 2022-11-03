@@ -1,7 +1,7 @@
 export const tpl = `<div class='chats-wrapper'>
     <div class='chats'>
         <div class='chats-header'>
-            <button>Профиль ></button>
+            <button id='chats-btn-profile'>Профиль ></button>
             <input type='text' placeholder='Поиск' />
         </div>
         <div class='chats-body'>

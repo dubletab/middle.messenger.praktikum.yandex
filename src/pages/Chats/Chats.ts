@@ -7,6 +7,7 @@ import Validation from '../../utils/Validation';
 import { ITempObj, TPropsDefault } from '../../utils/Interfaces';
 
 import './Chats.less';
+import Router from '../../utils/Router';
 
 type TProps = {} & TPropsDefault;
 
@@ -180,6 +181,16 @@ const messageData = templateMessageData.map(
 const ChatsPage = new Chats({
     chatData,
     messageData,
+    events: {
+        click: (event: Event) => {
+            event.preventDefault();
+            const target = event.target as HTMLInputElement;
+            if (target.id === 'chats-btn-profile') {
+                const router = new Router('root');
+                router.go('/profile');
+            }
+        },
+    },
     messageTyping: new MessageTypingForm(
         {
             className: 'message-typing-form',

@@ -15,9 +15,9 @@ class Router {
 
     private _currentRoute: Route | null;
 
-    routes: Route[];
+    public routes: Route[];
 
-    history: History;
+    public history: History;
 
     constructor(rootQuery: string) {
         if (Router.__instance) {
@@ -74,12 +74,11 @@ class Router {
         this._onRoute(pathname);
     }
 
-    _onRoute(pathname: string) {
+    private _onRoute(pathname: string) {
         const route = this.getRoute(pathname);
         if (!route) {
             return;
         }
-
         if (this._currentRoute) {
             this._currentRoute.leave();
         }
