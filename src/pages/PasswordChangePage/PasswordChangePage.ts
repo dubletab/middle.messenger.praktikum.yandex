@@ -3,23 +3,22 @@ import ProfileChangeForm from '../../containers/ProfileChangeForm/ProfileChangeF
 import ChangeInfoLine from '../../components/ChangeInfoLine/ChangeInfoLine';
 import Validation from '../../utils/Validation';
 import { ITempObj } from '../../utils/Interfaces';
+import { UserController } from '../../controllers/profile.ctrl';
+import Router from '../../utils/Router';
 
 const validation = new Validation();
 
 const templateData = [
     {
-        item: 'Старый пароль',
-        info: '123ZXCv!123',
+        name: 'Старый пароль',
         id: 'old_password',
     },
     {
-        item: 'Новый пароль',
-        info: '123ZXCv!',
+        name: 'Новый пароль',
         id: 'password',
     },
     {
-        item: 'Повторите новый пароль',
-        info: '123ZXCv!',
+        name: 'Повторите новый пароль',
         id: 'confirm_password',
     },
 ];
@@ -31,6 +30,7 @@ const profileData = templateData.map(
             className: 'change-info-line',
             required: true,
             type: 'password',
+            info: '',
             events: {
                 focus: (event: Event) => {
                     validation.hideError(event.target as HTMLInputElement);
@@ -53,6 +53,7 @@ const profileData = templateData.map(
 );
 
 const PasswordChangePage = new WrapperCenterPage({
+    backArrow: true,
     children: new ProfileChangeForm({
         profileData,
         events: {
@@ -63,13 +64,26 @@ const PasswordChangePage = new WrapperCenterPage({
                     const inputFields = target.querySelectorAll('[data-required=true]');
                     const data: ITempObj = {};
                     inputFields.forEach((current: HTMLInputElement) => {
-                        data[current.id] = current.value;
+                        if (current.id === 'password') {
+                            data.newPassword = current.value;
+                        } else if (current.id === 'old_password') {
+                            data.oldPassword = current.value;
+                        }
                     });
-                    console.log(data);
+                    UserController.changeUserPassword(data);
                 }
             },
         },
     }),
+    events: {
+        click: (e: Event) => {
+            const target = e.target as HTMLElement;
+            if (target.id === 'back') {
+                const router = new Router('root');
+                router.back();
+            }
+        },
+    },
 });
 
 export default PasswordChangePage;

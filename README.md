@@ -23,3 +23,5 @@
 Netlify: https://glittering-pika-1358e6.netlify.app/
 
 P.S. На текущей стадии разработки для удобства просмотра страниц в правом верхнем углу добавлен <b>Селектор</b> для перехода по страницам.
+
+ссылка на pull request: https://github.com/dubletab/middle.messenger.praktikum.yandex/pull/7

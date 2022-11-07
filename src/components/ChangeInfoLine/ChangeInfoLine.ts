@@ -5,22 +5,22 @@ import { TPropsDefault } from '../../utils/Interfaces';
 import './ChangeInfoLine.less';
 
 type TProps = {
-    item: string;
-    info: string;
+    name: string;
     id: string;
     type: string;
     required: boolean;
+    info: string;
 } & TPropsDefault;
 
 export default class ChangeInfoLine extends Block<TProps> {
     render() {
         return this.compile(tpl, {
-            item: this.props.item,
-            info: this.props.info,
+            name: this.props.name,
             id: this.props.id,
             type: this.props.type,
-            classNames: this.props.classNames,
+            className: this.props.className,
             required: this.props.required,
+            info: this.props.info,
         });
     }
 }
