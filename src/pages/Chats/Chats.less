@@ -9,6 +9,12 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    overflow: hidden;
+    &.active {
+        .chats-messages--hide {
+            display: none;
+        }
+    }
 }
 
 .chats {
@@ -53,6 +59,20 @@
     display: flex;
     flex-direction: column;
     padding: 10px 20px;
+    position: relative;
+    &--hide {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 32px;
+        background: #e5e5e5f5;
+        z-index: 10000;
+    }
     &--head {
         border-bottom: 1px solid @color-gray-20;
         display: flex;
@@ -78,11 +98,13 @@
         }
     }
     &--body {
-        flex: 1;
         overflow-y: auto;
-        padding-top: 10px;
-        display: flex;
-        flex-direction: column;
+        flex: 1;
+        > div {
+            padding-top: 10px;
+            display: flex;
+            flex-direction: column;
+        }
     }
     &--input {
         border-top: 1px solid @color-gray-20;

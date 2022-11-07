@@ -16,6 +16,7 @@ export function connect(mapStateToProps: (state: Indexed) => Indexed) {
                 super(...props);
                 store.on(StoreEvents.Updated, () => {
                     const newState = mapStateToProps(store.getState());
+                    // console.log(store.getState());
                     if (!isEqual(state, newState)) {
                         // @ts-ignore
                         this.setProps({ ...newState });

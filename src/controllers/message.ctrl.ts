@@ -1,0 +1,65 @@
+import { ChatMessagesAPI } from '../api/Message.api';
+import store from '../utils/Store';
+
+export class ChatController {
+    static createSessionsMessage(chatId: any, userId: any) {
+        ChatMessagesAPI.request(chatId).then((response: any) => {
+            const tokenChat = JSON.parse(response.responseText).token;
+            if (tokenChat) {
+                const socket = new WebSocket(`wss://ya-praktikum.tech/ws/chats/${userId}/${chatId}/${tokenChat}`);
+
+                socket.addEventListener('open', () => {
+                    console.log('Соединение установлено');
+                });
+
+                socket.addEventListener('close', (event) => {
+                    if (event.wasClean) {
+                        console.log('Соединение закрыто чисто');
+                    } else {
+                        console.log('Обрыв соединения');
+                    }
+                    console.log(`Код: ${event.code} | Причина: ${event.reason}`);
+                });
+
+                socket.addEventListener('message', (event) => {
+                    const eventJson = JSON.parse(event.data);
+                    if (Array.isArray(eventJson)) {
+                        store.set('messages', eventJson.reverse());
+                    } else {
+                        store.set('messages', [...store.getState().messages, eventJson]);
+                    }
+                    const elem = document.querySelector('.chats-messages--body>div');
+                    if (!elem) return;
+                    elem.scrollIntoView({
+                        behavior: 'smooth' || 'auto',
+                        block: 'end',
+                    });
+                });
+
+                socket.addEventListener('error', (event: any) => {
+                    console.log('Ошибка', event.message);
+                });
+
+                store.set('active.socket', socket);
+                socket.onopen = () =>
+                    socket.send(
+                        JSON.stringify({
+                            content: '0',
+                            type: 'get old',
+                        }),
+                    );
+            } else {
+                console.error('Token chat was not found!');
+            }
+        });
+    }
+
+    static sendMessage(message: any) {
+        store.getState().active.socket.send(
+            JSON.stringify({
+                content: message,
+                type: 'message',
+            }),
+        );
+    }
+}

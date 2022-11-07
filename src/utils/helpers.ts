@@ -117,3 +117,47 @@ export const isEqual = (lhs: PlainObject, rhs: PlainObject) => {
 
     return true;
 };
+
+// export const displayMessage = (event: any, name: any) => {
+//     const wrapMessage = document.createElement('div');
+//     wrapMessage.classList.add('message');
+//     wrapMessage.classList.add(name);
+//
+//     const contentMessage = document.createElement('p');
+//     contentMessage.textContent = event.content;
+//
+//     wrapMessage.appendChild(contentMessage);
+//
+//     const wrapInfoMessage = document.createElement('div');
+//     wrapInfoMessage.classList.add('info-msg');
+//
+//     const time = document.createElement('span');
+//     time.textContent = new Date(event.time).toLocaleTimeString();
+//     time.classList.add('time');
+//
+//     wrapInfoMessage.appendChild(time);
+//     wrapMessage.appendChild(wrapInfoMessage);
+//     console.log(wrapMessage);
+//     document.querySelector('.chats-messages--body')?.appendChild(wrapMessage);
+// };
+
+export const trim = (word: string, symbols?: string): string => {
+    if (!symbols) {
+        return word.replace(/^[\s|u'\xa0']+|[\s|u'\xa0']+$/gu, '');
+    }
+    const rep = new RegExp(`^[${symbols}]+|[${symbols}]+$`, 'gu');
+    return word.replace(rep, '');
+};
+
+export const getAllSiblings = (element: any, include: any) => {
+    const siblings = element.parentNode.children;
+    if (include) return siblings;
+
+    const out = [];
+    for (let i = 0; i < siblings.length; i += 1) {
+        if (siblings[i] !== element) {
+            out.push(siblings[i]);
+        }
+    }
+    return out;
+};

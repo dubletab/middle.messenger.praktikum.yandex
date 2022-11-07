@@ -5,23 +5,18 @@ export const tpl = `<div class='chats-wrapper'>
             <input type='text' placeholder='Поиск' />
         </div>
         <div class='chats-body'>
-            {{#each chatData}}
-                <div class='chats-body--item'>
-                    {{{this}}}
-                </div>
-            {{/each}}
+            {{{chatsData}}}
         </div>
     </div>
     <div class='chats-messages'>
+        <div class='chats-messages--hide'>Выберите или создайте чат</div>
         <div class='chats-messages--head'>
             <div class='chats-messages--head-logo'></div>
             <div class='chats-messages--head-name'>Вадим</div>
             <div class='chats-messages--head-option'>⋮</div>
         </div>
         <div class='chats-messages--body'>
-            {{#each messageData}}
-                {{{this}}}
-            {{/each}}
+            {{{messagesData}}}
         </div>
             {{{messageTyping}}}
     </div>
