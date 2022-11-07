@@ -84,20 +84,19 @@ const ProfileWrapState = connect((state) => ({
 const ProfileWithState = ProfileWrapState(Avatar);
 
 const ProfilePage = new WrapperCenterPage({
+    backArrow: true,
     children: new ProfileForm({
         avatar: new ProfileWithState({
             url: '',
             events: {
-                change: (event: any) => {
+                change: (event: Event) => {
                     const { files }: { files: FileList | null } = event.target as HTMLInputElement;
                     if (!files?.length) {
                         return;
                     }
                     const [file] = files;
-                    // console.log(event.target);
                     const formData = new FormData();
                     formData.append('avatar', file);
-                    // console.log(formData);
                     UserController.changeUserAvatar(formData);
                 },
             },
@@ -105,6 +104,14 @@ const ProfilePage = new WrapperCenterPage({
         profileData,
         settingsData,
     }),
+    events: {
+        click: (e: Event) => {
+            const target = e.target as HTMLElement;
+            if (target.id === 'back') {
+                router.back();
+            }
+        },
+    },
 });
 
 export default ProfilePage;

@@ -25,10 +25,7 @@ export class UserController {
     static changeUserAvatar(data: any) {
         AvatarAPI.change(data).then((response: any) => {
             if (response.status === 200) {
-                // displayFormLog(form, 'Avatar was changed!', true);
                 this.getUser();
-            } else {
-                // displayFormLog(form, JSON.parse(response.responseText).reason, false);
             }
         });
     }
@@ -36,10 +33,8 @@ export class UserController {
     static changeUserProfileData(data: any) {
         ChangeUserInfoAPI.change(data).then((response: any) => {
             if (response.status === 200) {
-                // displayFormLog(form, 'Profile data was changed!', true);
                 this.getUser();
-            } else {
-                // displayFormLog(form, JSON.parse(response.responseText).reason, false);
+                router.go('/profile');
             }
         });
     }
@@ -47,10 +42,7 @@ export class UserController {
     static changeUserPassword(data: any) {
         ChangeUserPwdAPI.change(data).then((response: any) => {
             if (response.status === 200) {
-                console.log('sucsus');
-                // displayFormLog(form, 'Succsessfull', true);
-            } else {
-                // displayFormLog(form, JSON.parse(response.responseText).reason, false);
+                router.go('/profile');
             }
         });
     }

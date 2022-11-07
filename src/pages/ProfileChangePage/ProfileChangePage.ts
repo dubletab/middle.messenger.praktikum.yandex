@@ -5,6 +5,7 @@ import Validation from '../../utils/Validation';
 import { ITempObj } from '../../utils/Interfaces';
 import { connect } from '../../utils/Connect';
 import { UserController } from '../../controllers/profile.ctrl';
+import Router from '../../utils/Router';
 
 const templateData = [
     {
@@ -87,6 +88,7 @@ const profileData = templateData.map((i) => {
 });
 
 const ProfileChangePage = new WrapperCenterPage({
+    backArrow: true,
     children: new ProfileChangeForm({
         profileData,
         events: {
@@ -100,11 +102,19 @@ const ProfileChangePage = new WrapperCenterPage({
                         data[current.id] = current.value;
                     });
                     UserController.changeUserProfileData(data);
-                    console.log(data);
                 }
             },
         },
     }),
+    events: {
+        click: (e: Event) => {
+            const target = e.target as HTMLElement;
+            if (target.id === 'back') {
+                const router = new Router('root');
+                router.back();
+            }
+        },
+    },
 });
 
 export default ProfileChangePage;

@@ -4,6 +4,7 @@ import ChangeInfoLine from '../../components/ChangeInfoLine/ChangeInfoLine';
 import Validation from '../../utils/Validation';
 import { ITempObj } from '../../utils/Interfaces';
 import { UserController } from '../../controllers/profile.ctrl';
+import Router from '../../utils/Router';
 
 const validation = new Validation();
 
@@ -52,6 +53,7 @@ const profileData = templateData.map(
 );
 
 const PasswordChangePage = new WrapperCenterPage({
+    backArrow: true,
     children: new ProfileChangeForm({
         profileData,
         events: {
@@ -69,11 +71,19 @@ const PasswordChangePage = new WrapperCenterPage({
                         }
                     });
                     UserController.changeUserPassword(data);
-                    console.log(data);
                 }
             },
         },
     }),
+    events: {
+        click: (e: Event) => {
+            const target = e.target as HTMLElement;
+            if (target.id === 'back') {
+                const router = new Router('root');
+                router.back();
+            }
+        },
+    },
 });
 
 export default PasswordChangePage;
