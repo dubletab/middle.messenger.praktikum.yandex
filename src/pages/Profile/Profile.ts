@@ -7,7 +7,6 @@ import Router from '../../utils/Router';
 import Avatar from '../../components/Avatar/Avatar';
 
 const router = new Router('root');
-UserController.getUser();
 
 const templateProfileData = [
     {
