@@ -39,14 +39,14 @@ export class UserChatController {
         });
     }
 
-    static createChat(data: any, form: any, input: any) {
+    static createChat(input: any) {
+        const data = {
+            title: input.value,
+        };
         ChatApi.create(data).then((response: any) => {
             if (response.status === 200) {
-                // displayFormLog(form, 'Chat created', true);
                 this.getAllChats();
                 input.value = '';
-            } else {
-                // displayFormLog(form, JSON.parse(response.responseText).reason, false);
             }
         });
     }

@@ -7,6 +7,10 @@ export const tpl = `<div class='chats-wrapper'>
         <div class='chats-body'>
             {{{chatsData}}}
         </div>
+        <div class='chats-footer'>
+          <input placeholder='+ Создать новый чат' id='chats-footer--inp'/>
+          <button id='chats-footer--btn' title='Добавить новый чат'>+</button>
+        </div>
     </div>
     <div class='chats-messages'>
         <div class='chats-messages--hide'>Выберите или создайте чат</div>

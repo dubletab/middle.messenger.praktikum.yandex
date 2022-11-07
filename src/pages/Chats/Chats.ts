@@ -35,6 +35,10 @@ const ChatsPage = new Chats({
                 const router = new Router('root');
                 router.go('/profile');
             }
+            if (target.id === 'chats-footer--btn') {
+                const newChat = document.getElementById('chats-footer--inp') as HTMLInputElement;
+                if (newChat.value) UserChatController.createChat(newChat);
+            }
         },
     },
     messageTyping: new MessageTypingForm(
@@ -45,7 +49,7 @@ const ChatsPage = new Chats({
                     event.preventDefault();
                     const target = event.target as HTMLFormElement;
                     if (target.classList.contains('message-typing-form-submit')) {
-                        const mes = document.getElementById('message') as HTMLTextAreaElement;
+                        const mes = document.getElementById('message') as HTMLInputElement;
                         if (mes.value) {
                             ChatController.sendMessage(mes.value);
                             mes.value = '';

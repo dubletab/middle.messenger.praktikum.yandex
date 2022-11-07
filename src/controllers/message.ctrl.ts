@@ -9,23 +9,23 @@ export class ChatController {
                 const socket = new WebSocket(`wss://ya-praktikum.tech/ws/chats/${userId}/${chatId}/${tokenChat}`);
 
                 socket.addEventListener('open', () => {
-                    console.log('Соединение установлено');
+                    console.log('connect to ws');
                 });
 
                 socket.addEventListener('close', (event) => {
                     if (event.wasClean) {
-                        console.log('Соединение закрыто чисто');
+                        console.log('connect was clean close');
                     } else {
-                        console.log('Обрыв соединения');
+                        console.log('disconnect');
                     }
-                    console.log(`Код: ${event.code} | Причина: ${event.reason}`);
+                    console.log(`Code: ${event.code}. Reason: ${event.reason}`);
                 });
 
                 socket.addEventListener('message', (event) => {
                     const eventJson = JSON.parse(event.data);
                     if (Array.isArray(eventJson)) {
                         store.set('messages', eventJson.reverse());
-                    } else {
+                    } else if (eventJson.type === 'message') {
                         store.set('messages', [...store.getState().messages, eventJson]);
                     }
                     const elem = document.querySelector('.chats-messages--body>div');
@@ -37,7 +37,7 @@ export class ChatController {
                 });
 
                 socket.addEventListener('error', (event: any) => {
-                    console.log('Ошибка', event.message);
+                    console.log('Mistake', event.message);
                 });
 
                 store.set('active.socket', socket);
