@@ -5,7 +5,6 @@ import Router from '../utils/Router';
 import { AvatarAPI } from '../api/Avatar.api';
 import { ChangeUserInfoAPI } from '../api/ChangeUserInfo.api';
 import { ChangeUserPwdAPI } from '../api/ChangeUserPass.api';
-// import { displayFormLog } from '../formLogger';
 
 const router = new Router('root');
 

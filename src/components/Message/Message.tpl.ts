@@ -1,7 +1,3 @@
-// export const tpl = `
-//         <p>{{text}}<time>{{time}}</time></p>
-// `;
-
 export const tpl = `
 {{#each messages}}
     {{#if (isAuthor user_id)}}

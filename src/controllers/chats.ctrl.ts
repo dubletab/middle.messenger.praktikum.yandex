@@ -65,15 +65,15 @@ export class UserChatController {
         });
     }
 
-    static setActiveChat(chatItem: any, userId?: string) {
+    static setActiveChat(chatItem: HTMLElement, userId?: string) {
         chatItem.classList.add('active');
-        getAllSiblings(chatItem, false).forEach((item: any) => {
+        getAllSiblings(chatItem, false).forEach((item: HTMLElement) => {
             item.classList.remove('active');
         });
 
         store.set('active.chat', {});
 
-        const activeChatObj: any = this.getActiveChat(store.getState(), chatItem.id);
+        const activeChatObj: any = this.getActiveChat(chatItem.id);
 
         if (activeChatObj.id !== store.getState()?.active?.chat?.id) {
             store.set('active.chat', activeChatObj);
@@ -81,9 +81,9 @@ export class UserChatController {
         }
     }
 
-    static getActiveChat(stateCopy: any, chatId: any) {
+    static getActiveChat(chatId: string) {
         let currentItem;
-        stateCopy.chats.forEach((item: any) => {
+        store.getState().chats.forEach((item: any) => {
             if (item.id.toString() === chatId) {
                 currentItem = item;
             }

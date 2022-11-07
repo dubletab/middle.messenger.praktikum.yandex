@@ -2,7 +2,6 @@ import Input from '../../components/Input/Input';
 import SignForm from '../../containers/SignForm/SignForm';
 import WrapperCenterPage from '../../layout/WrapperCenterPage/WrapperCenterPage';
 import Validation from '../../utils/Validation';
-// import { ITempObj } from '../../utils/Interfaces';
 import { LoginController } from '../../controllers/login.ctrl';
 
 const templateForm = [
@@ -54,17 +53,18 @@ const LoginPage = new WrapperCenterPage({
             submit: (event: Event) => {
                 event.preventDefault();
                 const target = event.target as HTMLFormElement;
-                // if (validation.check(target)) {
-                const inputFields = target.querySelectorAll('[data-required=true]');
-                const data: LoginFormModel = {
-                    login: '',
-                    password: '',
-                };
-                inputFields.forEach((current: HTMLInputElement) => {
-                    // @ts-ignore
-                    data[current.id] = current.value;
-                });
-                LoginController.login(data, target);
+                if (validation.check(target)) {
+                    const inputFields = target.querySelectorAll('[data-required=true]');
+                    const data: LoginFormModel = {
+                        login: '',
+                        password: '',
+                    };
+                    inputFields.forEach((current: HTMLInputElement) => {
+                        // @ts-ignore
+                        data[current.id] = current.value;
+                    });
+                    LoginController.login(data);
+                }
             },
         },
     }),

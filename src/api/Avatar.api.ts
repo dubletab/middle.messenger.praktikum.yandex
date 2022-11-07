@@ -4,7 +4,7 @@ import { BaseAPI } from './BaseApi';
 const avatarAPIInstance = new HTTPTransport('https://ya-praktikum.tech/api/v2/user/');
 
 export class AvatarAPI extends BaseAPI {
-    static change(data: any) {
+    static change(data: unknown) {
         return avatarAPIInstance
             .put('profile/avatar', {
                 credentials: 'include',
