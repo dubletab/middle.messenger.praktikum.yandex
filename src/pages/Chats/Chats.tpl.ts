@@ -16,8 +16,15 @@ export const tpl = `<div class='chats-wrapper'>
         <div class='chats-messages--hide'>Выберите или создайте чат</div>
         <div class='chats-messages--head'>
             <div class='chats-messages--head-logo'></div>
-            <div class='chats-messages--head-name'>Вадим</div>
-            <div class='chats-messages--head-option'>⋮</div>
+            <div class='chats-messages--head-name'>{{chatTitle}}</div>
+            <div class='chats-messages--head-option'>
+            ⋮
+                <div class='chats-messages--head-option-hide'>
+                    <div class='chats-messages--head-option-add'>Добавить пользователя</div>
+                    <div class='chats-messages--head-option-delete-user'>Удалить пользователя</div>
+                    <div class='chats-messages--head-option-delete'>Удалить чат</div>
+                </div>
+            </div>
         </div>
         <div class='chats-messages--body'>
             {{{messagesData}}}

@@ -1,45 +1,36 @@
 import { ChatApi } from '../api/ChatList.api';
-import { trim, getAllSiblings } from '../utils/helpers';
+import { getAllSiblings } from '../utils/helpers';
 import store from '../utils/Store';
 import { ChatController } from './message.ctrl';
 
 export class UserChatController {
-    static deleteUserFromChat(data: any, form: any, input: any) {
-        const arrayUsersId: any[] = [];
-        data.users.split(',').forEach((item: any) => {
-            arrayUsersId.push(Number(trim(item)));
-        });
-        data.users = arrayUsersId;
+    static deleteUserFromChat() {
+        const userId = window.prompt('Введите ID пользователя для удаления из чата');
+        if (!userId) {
+            return;
+        }
+        const data = {
+            chatId: store.getState().active.chat.id,
+            users: [Number(userId)],
+        };
 
-        ChatApi.deleteUsers(data).then((response: any) => {
-            if (response.status === 200) {
-                // displayFormLog(form, "User's removed from chat", true);
-                input.value = '';
-            } else {
-                // displayFormLog(form, JSON.parse(response.responseText).reason, false);
-            }
-        });
+        ChatApi.deleteUsers(data);
     }
 
-    static addUserFromChat(data: any, form: any, input: any) {
-        const arrayUsersId: any = [];
-        data.users.split(',').forEach((item: any) => {
-            arrayUsersId.push(Number(trim(item)));
-        });
+    static addUserFromChat() {
+        const userId = window.prompt('Введите ID пользователя для добавления в чат');
+        if (!userId) {
+            return;
+        }
+        const data = {
+            chatId: store.getState().active.chat.id,
+            users: [Number(userId)],
+        };
 
-        data.users = arrayUsersId;
-
-        ChatApi.addUsers(data).then((response: any) => {
-            if (response.status === 200) {
-                // displayFormLog(form, "User's added into chat", true);
-                input.value = '';
-            } else {
-                // displayFormLog(form, JSON.parse(response.responseText).reason, false);
-            }
-        });
+        ChatApi.addUsers(data);
     }
 
-    static createChat(input: any) {
+    static createChat(input: HTMLInputElement) {
         const data = {
             title: input.value,
         };
@@ -51,15 +42,18 @@ export class UserChatController {
         });
     }
 
-    static deleteChat(data: any, form: any, input: any) {
+    static deleteChat() {
+        if (!window.confirm('Вы действительно хотите удалить чат?')) {
+            return;
+        }
+        const data = {
+            chatId: store.getState().active.chat.id,
+        };
         ChatApi.delete(data).then((response: any) => {
             if (response.status === 200) {
-                // displayFormLog(form, 'Chat removed', true);
+                const wrapper = document.querySelector('.chats-wrapper') as HTMLElement;
+                wrapper.classList.remove('active');
                 this.getAllChats();
-                console.log(input);
-                input.value = '';
-            } else {
-                // displayFormLog(form, JSON.parse(response.responseText).reason, false);
             }
         });
     }
@@ -71,7 +65,7 @@ export class UserChatController {
         });
     }
 
-    static setActiveChat(chatItem: any, userId?: any) {
+    static setActiveChat(chatItem: any, userId?: string) {
         chatItem.classList.add('active');
         getAllSiblings(chatItem, false).forEach((item: any) => {
             item.classList.remove('active');
@@ -85,13 +79,6 @@ export class UserChatController {
             store.set('active.chat', activeChatObj);
             ChatController.createSessionsMessage(chatItem.id, userId);
         }
-        // try {
-        //     document.querySelector('.message-panel')?.classList.remove('hidden');
-        //     document.querySelector('.chat-not-choose')?.classList.add('hidden');
-        //     document.querySelector('.top-panel .button-option')?.classList.remove('hidden');
-        // } catch (error) {
-        //     console.error('setActiveChat queryselectors was not work');
-        // }
     }
 
     static getActiveChat(stateCopy: any, chatId: any) {

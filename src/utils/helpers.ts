@@ -98,7 +98,6 @@ export const isEqual = (lhs: PlainObject, rhs: PlainObject) => {
     if (Object.keys(lhs).length !== Object.keys(rhs).length) {
         return false;
     }
-
     // eslint-disable-next-line no-restricted-syntax
     for (const [key, value] of Object.entries(lhs)) {
         const rightValue = rhs[key];
@@ -116,37 +115,6 @@ export const isEqual = (lhs: PlainObject, rhs: PlainObject) => {
     }
 
     return true;
-};
-
-// export const displayMessage = (event: any, name: any) => {
-//     const wrapMessage = document.createElement('div');
-//     wrapMessage.classList.add('message');
-//     wrapMessage.classList.add(name);
-//
-//     const contentMessage = document.createElement('p');
-//     contentMessage.textContent = event.content;
-//
-//     wrapMessage.appendChild(contentMessage);
-//
-//     const wrapInfoMessage = document.createElement('div');
-//     wrapInfoMessage.classList.add('info-msg');
-//
-//     const time = document.createElement('span');
-//     time.textContent = new Date(event.time).toLocaleTimeString();
-//     time.classList.add('time');
-//
-//     wrapInfoMessage.appendChild(time);
-//     wrapMessage.appendChild(wrapInfoMessage);
-//     console.log(wrapMessage);
-//     document.querySelector('.chats-messages--body')?.appendChild(wrapMessage);
-// };
-
-export const trim = (word: string, symbols?: string): string => {
-    if (!symbols) {
-        return word.replace(/^[\s|u'\xa0']+|[\s|u'\xa0']+$/gu, '');
-    }
-    const rep = new RegExp(`^[${symbols}]+|[${symbols}]+$`, 'gu');
-    return word.replace(rep, '');
 };
 
 export const getAllSiblings = (element: any, include: any) => {

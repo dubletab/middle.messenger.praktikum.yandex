@@ -9,6 +9,7 @@ import Router from '../../utils/Router';
 import { UserChatController } from '../../controllers/chats.ctrl';
 import MessageState from '../../components/Message/Message';
 import { ChatController } from '../../controllers/message.ctrl';
+import { connect } from '../../utils/Connect';
 
 type TProps = {} & TPropsDefault;
 
@@ -18,15 +19,23 @@ class Chats extends Block<TProps> {
             chatsData: this.props.chatsData,
             messagesData: this.props.messagesData,
             messageTyping: this.props.messageTyping,
+            chatTitle: this.props.chatTitle,
         });
     }
 }
 
 UserChatController.getAllChats();
 
-const ChatsPage = new Chats({
+const ChatsWrapState = connect((state) => ({
+    chatTitle: state.active?.chat?.title,
+}));
+
+const ChatsWithState = ChatsWrapState(Chats);
+
+const ChatsPage = new ChatsWithState({
     chatsData: ChatItemsState,
     messagesData: MessageState,
+    chatTitle: '',
     events: {
         click: (event: Event) => {
             event.preventDefault();
@@ -38,6 +47,15 @@ const ChatsPage = new Chats({
             if (target.id === 'chats-footer--btn') {
                 const newChat = document.getElementById('chats-footer--inp') as HTMLInputElement;
                 if (newChat.value) UserChatController.createChat(newChat);
+            }
+            if (target.classList.contains('chats-messages--head-option-delete')) {
+                UserChatController.deleteChat();
+            }
+            if (target.classList.contains('chats-messages--head-option-delete-user')) {
+                UserChatController.deleteUserFromChat();
+            }
+            if (target.classList.contains('chats-messages--head-option-add')) {
+                UserChatController.addUserFromChat();
             }
         },
     },

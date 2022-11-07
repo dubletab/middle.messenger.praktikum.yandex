@@ -124,6 +124,39 @@
             display: flex;
             align-items: center;
             font-size: 26px;
+            width: 40px;
+            cursor: pointer;
+            justify-content: center;
+            position: relative;
+            &:hover {
+                background: @color-gray-20;
+
+                .chats-messages--head-option-hide {
+                    opacity: 1;
+                    display: block;
+                }
+            }
+
+            &-hide {
+                font-size: 16px;
+                opacity: 0;
+                display: none;
+                position: absolute;
+                border-radius: 5px;
+                border: 1px solid @color-gray-40;
+                top: 33px;
+                right: 0;
+                font-weight: 300;
+                background: white;
+                z-index: 1000;
+                div {
+                    width: 230px;
+                    padding: 10px;
+                    &:hover {
+                        background: @color-gray-20;
+                    }
+                }
+            }
         }
     }
     &--body {
