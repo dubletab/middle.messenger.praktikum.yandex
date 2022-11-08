@@ -54,7 +54,7 @@ export class ChatController {
         });
     }
 
-    static sendMessage(message: any) {
+    static sendMessage(message: string) {
         store.getState().active.socket.send(
             JSON.stringify({
                 content: message,

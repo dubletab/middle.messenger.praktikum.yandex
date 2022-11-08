@@ -10,10 +10,14 @@ import Router from './utils/Router';
 
 import './style.less';
 import './reworkStyles.less';
+import { LoginController } from './controllers/login.ctrl';
 
 const router = new Router('root');
 
 router
+    .setUnprotectedPaths(['/', '/signup'])
+    .onRoute(LoginController.checkAuth)
+    .onNotRoute(LoginController.checkNotAuth)
     .use('/', LoginPage)
     .use('/500', Error500Page)
     .use('/signup', SignupPage)

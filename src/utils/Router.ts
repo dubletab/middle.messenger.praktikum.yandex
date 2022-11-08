@@ -15,6 +15,12 @@ class Router {
 
     private _currentRoute: Route | null;
 
+    private _unprotectedPaths: string[];
+
+    private _onRouteCallback: () => void;
+
+    private _onNotRouteCallback: () => void;
+
     public routes: Route[];
 
     public history: History;
@@ -30,6 +36,9 @@ class Router {
         this.history = window.history;
         this._currentRoute = null;
         this._rootQuery = rootQuery;
+        this._unprotectedPaths = [];
+        this._onRouteCallback = () => {};
+        this._onNotRouteCallback = () => {};
     }
 
     get currentRoute() {
@@ -86,6 +95,27 @@ class Router {
         this._currentRoute = route;
 
         route.render();
+        if (!this._unprotectedPaths.includes(pathname)) {
+            this._onRouteCallback();
+        }
+        if (this._unprotectedPaths.includes(pathname)) {
+            this._onNotRouteCallback();
+        }
+    }
+
+    public setUnprotectedPaths(paths: string[]) {
+        this._unprotectedPaths = paths;
+        return this;
+    }
+
+    public onRoute(callback: () => void) {
+        this._onRouteCallback = callback;
+        return this;
+    }
+
+    public onNotRoute(callback: () => void) {
+        this._onNotRouteCallback = callback;
+        return this;
     }
 
     go(pathname: string) {

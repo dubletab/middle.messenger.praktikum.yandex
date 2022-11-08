@@ -51,7 +51,7 @@ export default class Route {
             render(this._props.rootQuery, this._block);
             return;
         }
-
+        render('root', this._block);
         this._block.show();
     }
 }

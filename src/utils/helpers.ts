@@ -24,7 +24,6 @@ const merge = (lhs: Indexed, rhs: Indexed): Indexed => {
             // eslint-disable-next-line no-continue
             continue;
         }
-
         try {
             if (rhs[p].constructor === Object) {
                 rhs[p] = merge(lhs[p] as Indexed, rhs[p] as Indexed);
@@ -55,33 +54,6 @@ export const set = (object: Indexed | unknown, path: string, value: unknown): In
         value as any,
     );
     return merge(object as Indexed, result);
-};
-
-export const displayFormLog = (form: HTMLFormElement, message: string, isSuccess: boolean) => {
-    try {
-        const logContainer = form.querySelector('.log-container');
-        if (logContainer) {
-            logContainer.textContent = '';
-            if (isSuccess) {
-                if (!logContainer.classList.contains('success')) {
-                    logContainer.classList.add('success');
-                }
-                if (logContainer.classList.contains('error')) {
-                    logContainer.classList.remove('error');
-                }
-            } else {
-                if (logContainer.classList.contains('success')) {
-                    logContainer.classList.remove('success');
-                }
-                if (!logContainer.classList.contains('error')) {
-                    logContainer.classList.add('error');
-                }
-            }
-            logContainer.textContent = message;
-        }
-    } catch (error) {
-        console.error('log-container was not found');
-    }
 };
 
 const isPlainObject = (value: unknown): value is PlainObject =>
