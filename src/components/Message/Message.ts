@@ -1,19 +1,37 @@
 import { tpl } from './Message.tpl';
 import Block from '../../utils/Block';
 import { TPropsDefault } from '../../utils/Interfaces';
-
+import * as Handlebars from 'handlebars';
 import './Message.less';
+import { connect } from '../../utils/Connect';
+import store from '../../utils/Store';
 
 type TProps = {
-    text: string;
-    time: string;
+    messages: any;
 } & TPropsDefault;
 
-export default class Message extends Block<TProps> {
+Handlebars.registerHelper('isAuthor', (value) => value === store.getState().user?.id);
+
+Handlebars.registerHelper('getTime', (value) => new Date(value).toLocaleTimeString());
+
+class Message extends Block<TProps> {
     render() {
         return this.compile(tpl, {
-            text: this.props.text,
-            time: this.props.time,
+            messages: this.props.messages,
         });
     }
 }
+
+const tempM = [{}];
+
+const MessageWrapState = connect((state) => ({
+    messages: state.messages,
+}));
+
+const MessageWithState = MessageWrapState(Message);
+
+const MessageState = new MessageWithState({
+    messages: tempM,
+});
+
+export default MessageState;

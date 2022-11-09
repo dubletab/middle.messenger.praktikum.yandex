@@ -3,86 +3,92 @@ import ProfileChangeForm from '../../containers/ProfileChangeForm/ProfileChangeF
 import ChangeInfoLine from '../../components/ChangeInfoLine/ChangeInfoLine';
 import Validation from '../../utils/Validation';
 import { ITempObj } from '../../utils/Interfaces';
+import { connect } from '../../utils/Connect';
+import { UserController } from '../../controllers/profile.ctrl';
+import Router from '../../utils/Router';
 
 const templateData = [
     {
-        item: 'Почта',
-        info: 'pochta@yandex.ru',
+        name: 'Почта',
         id: 'email',
     },
     {
-        item: 'Логин',
-        info: 'ivanivanov',
+        name: 'Логин',
         id: 'login',
     },
     {
-        item: 'Имя',
-        info: 'Иван',
+        name: 'Имя',
         id: 'first_name',
     },
     {
-        item: 'Фамилия',
-        info: 'Иванов',
+        name: 'Фамилия',
         id: 'second_name',
     },
     {
-        item: 'Имя в чате',
-        info: 'Иван',
+        name: 'Имя в чате',
         id: 'display_name',
     },
     {
-        item: 'Телефон',
-        info: '+79099673030',
+        name: 'Телефон',
         id: 'phone',
     },
 ];
 
 const validation = new Validation();
 
-const profileData = templateData.map(
-    (el) =>
-        new ChangeInfoLine({
-            ...el,
-            className: 'change-info-line',
-            required: true,
-            type: el.id === 'phone' ? 'tel' : 'text',
-            events: {
-                focus: (event: Event) => {
-                    validation.hideError(event.target as HTMLInputElement);
-                },
-                blur: (event: Event) => {
-                    const target = event.target as HTMLInputElement;
-                    if (target.id === 'login') {
-                        if (!validation.login(target.value)) {
-                            validation.showError(target);
-                        }
-                    }
-                    if (target.id === 'email') {
-                        if (!validation.email(target.value)) {
-                            validation.showError(target);
-                        }
-                    }
-                    if (target.id === 'phone') {
-                        if (!validation.phone(target.value)) {
-                            validation.showError(target);
-                        }
-                    }
-                    if (target.id === 'display_name') {
-                        if (!validation.checkEmptyValue(target.value)) {
-                            validation.showError(target);
-                        }
-                    }
-                    if (target.id === 'first_name' || target.id === 'second_name') {
-                        if (!validation.names(target.value)) {
-                            validation.showError(target);
-                        }
-                    }
-                },
+const profileData = templateData.map((i) => {
+    const A = connect((state) => ({
+        ...i,
+        required: true,
+        className: 'change-info-line',
+        type: i.id === 'phone' ? 'tel' : 'text',
+        info: state.user?.[i.id],
+    }));
+    const B = A(ChangeInfoLine);
+    return new B({
+        info: '-',
+        ...i,
+        className: 'change-info-line',
+        required: true,
+        type: i.id === 'phone' ? 'tel' : 'text',
+        events: {
+            focus: (event: Event) => {
+                validation.hideError(event.target as HTMLInputElement);
             },
-        }),
-);
+            blur: (event: Event) => {
+                const target = event.target as HTMLInputElement;
+                if (target.id === 'login') {
+                    if (!validation.login(target.value)) {
+                        validation.showError(target);
+                    }
+                }
+                if (target.id === 'email') {
+                    if (!validation.email(target.value)) {
+                        validation.showError(target);
+                    }
+                }
+                if (target.id === 'phone') {
+                    if (!validation.phone(target.value)) {
+                        validation.showError(target);
+                    }
+                }
+                if (target.id === 'display_name') {
+                    if (!validation.checkEmptyValue(target.value)) {
+                        validation.showError(target);
+                    }
+                }
+                if (target.id === 'first_name' || target.id === 'second_name') {
+                    if (!validation.names(target.value)) {
+                        validation.showError(target);
+                    }
+                }
+            },
+        },
+    });
+});
 
 const ProfileChangePage = new WrapperCenterPage({
+    backArrow: true,
     children: new ProfileChangeForm({
         profileData,
         events: {
@@ -95,11 +101,20 @@ const ProfileChangePage = new WrapperCenterPage({
                     inputFields.forEach((current: HTMLInputElement) => {
                         data[current.id] = current.value;
                     });
-                    console.log(data);
+                    UserController.changeUserProfileData(data);
                 }
             },
         },
     }),
+    events: {
+        click: (e: Event) => {
+            const target = e.target as HTMLElement;
+            if (target.id === 'back') {
+                const router = new Router('root');
+                router.back();
+            }
+        },
+    },
 });
 
 export default ProfileChangePage;
