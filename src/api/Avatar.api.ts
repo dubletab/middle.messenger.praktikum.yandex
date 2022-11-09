@@ -1,7 +1,7 @@
 import HTTPTransport from '../utils/HTTPTransport';
-import { BaseAPI } from './BaseApi';
+import { BASE_URL, BaseAPI } from './BaseApi';
 
-const avatarAPIInstance = new HTTPTransport('https://ya-praktikum.tech/api/v2/user/');
+const avatarAPIInstance = new HTTPTransport(`${BASE_URL}/user/`);
 
 export class AvatarAPI extends BaseAPI {
     static change(data: unknown) {
@@ -11,6 +11,10 @@ export class AvatarAPI extends BaseAPI {
                 mode: 'cors',
                 body: data,
             })
-            .then((response) => response);
+            .then((response) => response)
+            .catch((e) => {
+                const message = e.message ? e.message : 'Ошибка запроса';
+                window.alert(message);
+            });
     }
 }

@@ -11,7 +11,11 @@ const router = new Router('root');
 export class UserController {
     static getUser() {
         UserAPI.request().then((data: any) => {
-            store.set('user', JSON.parse(data.responseText));
+            try {
+                store.set('user', JSON.parse(data.responseText));
+            } catch {
+                window.alert('Ошибка парсинга');
+            }
         });
     }
 
