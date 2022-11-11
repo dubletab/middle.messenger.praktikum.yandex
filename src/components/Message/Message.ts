@@ -1,18 +1,19 @@
 import { tpl } from './Message.tpl';
 import Block from '../../utils/Block';
 import { TPropsDefault } from '../../utils/Interfaces';
-import * as Handlebars from 'handlebars';
 import './Message.less';
 import { connect } from '../../utils/Connect';
 import store from '../../utils/Store';
+
+const Handlebars = require('handlebars/dist/cjs/handlebars');
 
 type TProps = {
     messages: any;
 } & TPropsDefault;
 
-Handlebars.registerHelper('isAuthor', (value) => value === store.getState().user?.id);
+Handlebars.registerHelper('isAuthor', (value: string) => value === store.getState().user?.id);
 
-Handlebars.registerHelper('getTime', (value) => new Date(value).toLocaleTimeString());
+Handlebars.registerHelper('getTime', (value: string) => new Date(value).toLocaleTimeString());
 
 class Message extends Block<TProps> {
     render() {
