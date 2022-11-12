@@ -4,7 +4,7 @@ import { TPropsDefault } from '../../utils/Interfaces';
 
 import './ErrorPageBlock.less';
 
-type TProps = {
+export type TProps = {
     errorNumber: string | number;
     errorMessage: string;
 } & TPropsDefault;

@@ -1,19 +1,20 @@
 import { JSDOM } from 'jsdom';
 import { expect } from 'chai';
 import Block from '../../utils/Block';
-import { tpl } from './Avatar.tpl';
+import { tpl } from './ErrorPageBlock.tpl';
 import render from '../../utils/renderDOM';
-import { TProps } from './Avatar';
+import { TProps } from './ErrorPageBlock';
 
-class AvatarMock extends Block<TProps> {
+class ErrorPageBlockMock extends Block<TProps> {
     render() {
         return this.compile(tpl, {
-            url: this.props.url,
+            errorNumber: this.props.errorNumber,
+            errorMessage: this.props.errorMessage,
         });
     }
 }
 
-describe('Avatar component test', () => {
+describe('ErrorPageBlock component test', () => {
     beforeEach(() => {
         const { window } = new JSDOM(
             `<html>
@@ -29,10 +30,11 @@ describe('Avatar component test', () => {
     });
 
     it('check display component', () => {
-        const ava = new AvatarMock({
-            url: 'testURL',
+        const errorPage = new ErrorPageBlockMock({
+            errorNumber: 500,
+            errorMessage: 'MISTAKE',
         });
-        render('root', ava);
-        expect(document.querySelectorAll('.avatar--img').length).to.eq(1);
+        render('root', errorPage);
+        expect(document.querySelectorAll('.error--title').length).to.eq(1);
     });
 });
