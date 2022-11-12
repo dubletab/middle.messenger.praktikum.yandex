@@ -7,8 +7,8 @@ app.use(express.static(__dirname + '/dist'));
 
 const navArray = ['/', '/500', '/signup', '/messenger', '/profile', '/profile-change', '/password-change', '/*'];
 
-navArray.forEach((item) => {
-    app.get(item, (req, res) => {
+navArray.forEach(() => {
+    app.get('/*', (req, res) => {
         res.sendFile(__dirname + '/dist/index.html');
     });
 });
