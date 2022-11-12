@@ -60,8 +60,13 @@ export class UserChatController {
 
     static getAllChats() {
         return ChatApi.request().then((response: any) => {
-            store.set('chats', JSON.parse(response.responseText));
-            return JSON.parse(response.responseText);
+            try {
+                const data = JSON.parse(response.responseText);
+                store.set('chats', data);
+                return data;
+            } catch {
+                window.alert('Ошибка парсинга');
+            }
         });
     }
 

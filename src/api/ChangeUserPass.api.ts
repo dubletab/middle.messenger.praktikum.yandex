@@ -1,7 +1,7 @@
 import HTTPTransport from '../utils/HTTPTransport';
-import { BaseAPI } from './BaseApi';
+import { BASE_URL, BaseAPI } from './BaseApi';
 
-const changeUserPwdAPIInstance = new HTTPTransport('https://ya-praktikum.tech/api/v2/user/');
+const changeUserPwdAPIInstance = new HTTPTransport(`${BASE_URL}/user/`);
 
 export class ChangeUserPwdAPI extends BaseAPI {
     static change(data: unknown) {
@@ -14,6 +14,10 @@ export class ChangeUserPwdAPI extends BaseAPI {
                 },
                 body: JSON.stringify(data),
             })
-            .then((response) => response);
+            .then((response) => response)
+            .catch((e) => {
+                const message = e.message ? e.message : 'Ошибка запроса';
+                window.alert(message);
+            });
     }
 }

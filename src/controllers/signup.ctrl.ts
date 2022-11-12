@@ -20,7 +20,11 @@ export class UserSignUpController {
             if (response.status === 200) {
                 UserAPI.request().then((responseData: any) => {
                     if (responseData.status === 200) {
-                        store.set('user', JSON.parse(responseData.responseText));
+                        try {
+                            store.set('user', JSON.parse(responseData.responseText));
+                        } catch {
+                            window.alert('Ошибка парсинга');
+                        }
                         router.go('/messenger');
                     } else {
                         window.alert('Ошибка запроса данных пользователя');

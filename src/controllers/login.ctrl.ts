@@ -17,7 +17,11 @@ export class LoginController {
             if (response.status === 200) {
                 UserAPI.request().then((responseData: any) => {
                     if (responseData.status === 200) {
-                        store.set('user', JSON.parse(responseData.responseText));
+                        try {
+                            store.set('user', JSON.parse(responseData.responseText));
+                        } catch {
+                            window.alert('Ошибка парсинга');
+                        }
                         UserChatController.getAllChats();
                         router.go('/messenger');
                     } else {
@@ -33,7 +37,11 @@ export class LoginController {
     static checkAuth() {
         UserAPI.request().then((responseData: any) => {
             if (responseData.status === 200) {
-                store.set('user', JSON.parse(responseData.responseText));
+                try {
+                    store.set('user', JSON.parse(responseData.responseText));
+                } catch {
+                    window.alert('Ошибка парсинга');
+                }
             } else {
                 router.go('/');
             }
