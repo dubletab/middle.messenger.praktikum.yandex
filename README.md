@@ -22,7 +22,7 @@
 
 Netlify: https://glittering-pika-1358e6.netlify.app/
 
-Heroku: https://dashboard.heroku.com/apps/dubletab
+Heroku: https://dubletab.herokuapp.com/messenger
 
 P.S. На текущей стадии разработки для удобства просмотра страниц в правом верхнем углу добавлен <b>Селектор</b> для перехода по страницам.
 
