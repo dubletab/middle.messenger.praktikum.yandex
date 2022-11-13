@@ -6,7 +6,8 @@
 -   `npm run build` — сборка стабильной версии,
 -   `npm run start` — сборка стабильной версии и старт вебсервера на порту 3000 с раздачей статики,
 -   `npm run lint` — запуск EsLint,
--   `npm run stylelint` — запуск Stylelint.
+-   `npm run lint:style` — запуск Stylelint.
+-   `npm run test` — запуск тестов Mocha.
 
 Используемые технологии:
 
