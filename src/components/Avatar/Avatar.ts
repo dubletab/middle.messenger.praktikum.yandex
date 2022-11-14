@@ -4,7 +4,7 @@ import { TPropsDefault } from '../../utils/Interfaces';
 
 import './Avatar.less';
 
-type TProps = {
+export type TProps = {
     url: string;
 } & TPropsDefault;
 

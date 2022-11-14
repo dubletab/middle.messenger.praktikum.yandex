@@ -5,13 +5,14 @@ import { connect } from '../../utils/Connect';
 import { UserChatController } from '../../controllers/chats.ctrl';
 import './ChatItem.less';
 import store from '../../utils/Store';
-import Handlebars from 'handlebars';
+
+const Handlebars = require('handlebars/dist/cjs/handlebars');
 
 type TProps = {
     chats: any;
 } & TPropsDefault;
 
-Handlebars.registerHelper('getTime', (value) => new Date(value).toLocaleTimeString());
+Handlebars.registerHelper('getTime', (value: string) => new Date(value).toLocaleTimeString());
 
 class ChatItems extends Block<TProps> {
     render() {

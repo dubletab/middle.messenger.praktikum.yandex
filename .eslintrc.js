@@ -27,13 +27,9 @@ module.exports = {
         'no-param-reassign': 'off',
         'import/no-dynamic-require': 'off',
         'no-underscore-dangle': 'off',
+        'no-undef': 0,
+        'import/no-extraneous-dependencies': 0,
         'func-names': ['error', 'never', { generators: 'as-needed' }],
-        'import/no-extraneous-dependencies': [
-            'error',
-            {
-                devDependencies: true,
-            },
-        ],
         'global-require': 0,
         'import/extensions': [
             'error',
